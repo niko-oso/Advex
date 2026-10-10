@@ -371,6 +371,24 @@ h1, h2, h3, p, a, span, b, li, label { overflow-wrap: break-word; }
   transition: opacity .25s, transform .3s var(--ease);
 }
 .cat-menu a:hover .cat-go, .cat-menu a:focus-visible .cat-go { opacity: 1; transform: none; }
+/* Ссылка на страницу каталога внизу панели */
+.nav .cat-menu .cat-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 2px 10px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform .35s var(--ease);
+}
+.nav .cat-menu .cat-all:hover { background: var(--ink); padding-left: 16px; transform: scale(1.04); }
+.cat-all .ic { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--acc); color: var(--ink); transition: transform .45s var(--ease); }
+.cat-all:hover .ic { transform: rotate(-45deg); }
+.mnav .mnav-cat-list .mnav-cat-all { grid-column: 1 / -1; font-weight: 500; }
 
 /* «Каталог стендов» в мобильном меню */
 .mnav-cat summary {
@@ -1855,19 +1873,20 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <button type="button" class="nav-dd-btn" aria-expanded="false" aria-controls="cat-menu">Каталог стендов<svg class="nav-chev" width="14" height="14" aria-hidden="true"><use href="#i-chev"/></svg></button>
       <div class="cat-menu" id="cat-menu">
         <ul>
-          <li><a href="#catalog"><span>Ролл-ап</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Поп-ап</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Баннерные стенды</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Фолд-ап</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Пресс-волл</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Тканевые стенды</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Выставочные застройки</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Ресепшен</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Полиграфия</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Промостойки</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Рекламные вывески</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
-          <li><a href="#catalog"><span>Буклетницы</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/roll-up/index.html"><span>Ролл-ап</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/pop-up/index.html"><span>Поп-ап</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/banner/index.html"><span>Баннерные стенды</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/fold-up/index.html"><span>Фолд-ап</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/press-wall/index.html"><span>Пресс-волл</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/fabric/index.html"><span>Тканевые стенды</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/custom/index.html"><span>Выставочные застройки</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/reception/index.html"><span>Ресепшен</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/print/index.html"><span>Полиграфия</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/promo/index.html"><span>Промостойки</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/signs/index.html"><span>Рекламные вывески</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          <li><a href="stands/brochure/index.html"><span>Буклетницы</span><svg class="cat-go" width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
         </ul>
+        <a href="catalog.html" class="cat-all">Весь каталог<span class="ic"><svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
     <a href="#">Изготовление стендов</a>
@@ -1905,18 +1924,19 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     <details class="mnav-cat">
       <summary>Каталог стендов<svg width="16" height="16" aria-hidden="true"><use href="#i-chev"/></svg></summary>
       <div class="mnav-cat-list">
-        <a href="#catalog">Ролл-ап</a>
-        <a href="#catalog">Поп-ап</a>
-        <a href="#catalog">Баннерные стенды</a>
-        <a href="#catalog">Фолд-ап</a>
-        <a href="#catalog">Пресс-волл</a>
-        <a href="#catalog">Тканевые стенды</a>
-        <a href="#catalog">Выставочные застройки</a>
-        <a href="#catalog">Ресепшен</a>
-        <a href="#catalog">Полиграфия</a>
-        <a href="#catalog">Промостойки</a>
-        <a href="#catalog">Рекламные вывески</a>
-        <a href="#catalog">Буклетницы</a>
+        <a href="stands/roll-up/index.html">Ролл-ап</a>
+        <a href="stands/pop-up/index.html">Поп-ап</a>
+        <a href="stands/banner/index.html">Баннерные стенды</a>
+        <a href="stands/fold-up/index.html">Фолд-ап</a>
+        <a href="stands/press-wall/index.html">Пресс-волл</a>
+        <a href="stands/fabric/index.html">Тканевые стенды</a>
+        <a href="stands/custom/index.html">Выставочные застройки</a>
+        <a href="stands/reception/index.html">Ресепшен</a>
+        <a href="stands/print/index.html">Полиграфия</a>
+        <a href="stands/promo/index.html">Промостойки</a>
+        <a href="stands/signs/index.html">Рекламные вывески</a>
+        <a href="stands/brochure/index.html">Буклетницы</a>
+        <a href="catalog.html" class="mnav-cat-all">Весь каталог →</a>
       </div>
     </details>
     <a href="#">Изготовление стендов</a>
@@ -1973,24 +1993,24 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     </div>
     <div class="sec-head-r">
       <p class="muted text-lg">Мобильные решения и индивидуальные пространства для вашего бренда.</p>
-      <a href="#" class="btn btn-solid btn-sm">Весь каталог<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="catalog.html" class="btn btn-solid btn-sm">Весь каталог<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
     </div>
   </div>
 
   <ul class="cat-grid">
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/01-Ролл-ап.png" width="247" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Ролл-ап</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/02-Поп-ап.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Поп-ап</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/03-Баннерные-стенды.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Баннерные стенды</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/04-Фолд-ап.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Фолд-ап</span></div></a></li>
+    <li><a href="stands/roll-up/index.html" class="tile"><div class="tile-img"><img src="../img/category/01-Ролл-ап.png" width="247" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Ролл-ап</span></div></a></li>
+    <li><a href="stands/pop-up/index.html" class="tile"><div class="tile-img"><img src="../img/category/02-Поп-ап.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Поп-ап</span></div></a></li>
+    <li><a href="stands/banner/index.html" class="tile"><div class="tile-img"><img src="../img/category/03-Баннерные-стенды.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Баннерные стенды</span></div></a></li>
+    <li><a href="stands/fold-up/index.html" class="tile"><div class="tile-img"><img src="../img/category/04-Фолд-ап.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Фолд-ап</span></div></a></li>
 
-    <li><a href="#" class="tile"><span class="chip chip-lime">Индивидуальный проект</span><div class="tile-img"><img src="../img/category/07-Выставочные-застройки.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Выставочные застройки</span></div></a></li>
+    <li><a href="stands/custom/index.html" class="tile"><span class="chip chip-lime">Индивидуальный проект</span><div class="tile-img"><img src="../img/category/07-Выставочные-застройки.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Выставочные застройки</span></div></a></li>
 
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/05-Пресс-волл.png" width="247" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Пресс-волл</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/06-Тканевые-стенды.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Тканевые стенды</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/08-Ресепшен.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Ресепшен</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/10-Промостойки.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Промостойки</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/11-Рекламные-вывески.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Рекламные вывески</span></div></a></li>
-    <li><a href="#" class="tile"><div class="tile-img"><img src="../img/category/12-Буклетницы.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Буклетницы</span></div></a></li>
+    <li><a href="stands/press-wall/index.html" class="tile"><div class="tile-img"><img src="../img/category/05-Пресс-волл.png" width="247" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Пресс-волл</span></div></a></li>
+    <li><a href="stands/fabric/index.html" class="tile"><div class="tile-img"><img src="../img/category/06-Тканевые-стенды.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Тканевые стенды</span></div></a></li>
+    <li><a href="stands/reception/index.html" class="tile"><div class="tile-img"><img src="../img/category/08-Ресепшен.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Ресепшен</span></div></a></li>
+    <li><a href="stands/promo/index.html" class="tile"><div class="tile-img"><img src="../img/category/10-Промостойки.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Промостойки</span></div></a></li>
+    <li><a href="stands/signs/index.html" class="tile"><div class="tile-img"><img src="../img/category/11-Рекламные-вывески.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Рекламные вывески</span></div></a></li>
+    <li><a href="stands/brochure/index.html" class="tile"><div class="tile-img"><img src="../img/category/12-Буклетницы.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Буклетницы</span></div></a></li>
 
     <li class="is-cta"><a href="#contact" class="cta-tile"><span class="mono">Нет нужной формы?</span><p>Сделаем конструкцию по вашему эскизу.</p><span class="ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
   </ul>
@@ -2398,7 +2418,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <nav class="fcol" aria-label="Направления">
           <span class="mono">Направления</span>
           <ul>
-            <li><a href="#catalog">Каталог стендов</a></li>
+            <li><a href="catalog.html">Каталог стендов</a></li>
             <li><a href="#">Изготовление стендов</a></li>
             <li><a href="#">Модели и персонал</a></li>
             <li><a href="#rent">Аренда оборудования</a></li>
@@ -2408,10 +2428,10 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <nav class="fcol" aria-label="Конструкции">
           <span class="mono">Конструкции</span>
           <ul>
-            <li><a href="#">Ролл-ап</a></li>
-            <li><a href="#">Поп-ап</a></li>
-            <li><a href="#">Баннерные стенды</a></li>
-            <li><a href="#">Фолд-ап</a></li>
+            <li><a href="stands/roll-up/index.html">Ролл-ап</a></li>
+            <li><a href="stands/pop-up/index.html">Поп-ап</a></li>
+            <li><a href="stands/banner/index.html">Баннерные стенды</a></li>
+            <li><a href="stands/fold-up/index.html">Фолд-ап</a></li>
           </ul>
         </nav>
         <div class="fcol">

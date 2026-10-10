@@ -1,0 +1,2368 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дизайн-система ADVEX</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@300..700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>
+/* ===== ЯДРО (копия с главной) ===== */
+
+/* =========================================================
+   ADVEX — главная страница
+   Структура: токены → база → компоненты → секции → адаптив
+   ========================================================= */
+
+/* ---------- 1. Токены ---------- */
+:root {
+  --bg: #F2F3EE;        /* фон страницы */
+  --paper: #FFFFFF;     /* карточки */
+  --sage: #E5E9DB;      /* шалфейные полосы и панели */
+  --render: #DEDEDF;    /* фон 3D-рендеров каталога */
+  --ink: #141812;       /* текст, тёмные кнопки */
+  --ink-hover: #2B3325;
+  --mute: #575E52;      /* второстепенный текст */
+  --line: #D6DACD;      /* линии-разделители */
+  --acc: #D4F14B;       /* лаймовый акцент */
+
+  --font: 'Onest', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --r-sm: 16px;
+  --r-md: 24px;
+  --r-lg: 28px;
+  --r-xl: 32px;
+  --r-xxl: 36px;
+
+  --container: 1440px;
+  --gutter: 40px;
+  --section: 120px;
+
+  --ease: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ---------- 2. База ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+svg { display: block; flex-shrink: 0; }
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, p { margin: 0; }
+button, input, textarea { font: inherit; color: inherit; }
+
+/* Длинные слова на других языках не должны ломать сетку */
+h1, h2, h3, p, a, span, b, li, label { overflow-wrap: break-word; }
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--acc);
+  font-weight: 500;
+  transition: top .2s;
+}
+.skip-link:focus { top: 16px; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.sec { padding-top: var(--section); }
+
+/* ---------- 3. Типографика ---------- */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--mute);
+  margin-bottom: 22px;
+}
+.eyebrow::before {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: var(--acc);
+  transform: skewX(-20deg);
+}
+
+.h1 {
+  font-size: clamp(42px, 7.2vw, 112px);
+  line-height: .96;
+  letter-spacing: -.045em;
+  font-weight: 500;
+}
+.h2 {
+  font-size: clamp(34px, 4.6vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -.04em;
+  font-weight: 500;
+}
+.h3 {
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  font-weight: 500;
+}
+
+.mark {
+  display: inline-block;
+  background: var(--acc);
+  border-radius: .16em;
+  padding: 0 .12em .06em;
+  margin-left: -.04em;
+  margin-top: 14px;
+  line-height: 1;
+}
+
+.muted { color: var(--mute); }
+.lead { font-size: 20px; line-height: 1.45; color: var(--mute); max-width: 460px; }
+.text-lg { font-size: 18px; }
+
+/* ---------- 4. Кнопки ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  max-width: 100%;
+  padding: 8px 8px 8px 26px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  transition: background .25s, color .25s, box-shadow .25s, transform .35s var(--ease);
+}
+.btn .ic {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: transform .45s var(--ease), background .25s, color .25s;
+}
+.btn:hover { transform: scale(1.04); }
+.btn:hover .ic { transform: rotate(-45deg); }
+
+.btn-dark { background: var(--ink); color: #fff; }
+.btn-dark .ic { background: var(--acc); color: var(--ink); }
+.btn-dark:hover { background: var(--ink-hover); }
+
+.btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.btn-ghost .ic { background: var(--ink); color: #fff; }
+.btn-ghost:hover { background: var(--ink); color: #fff; }
+.btn-ghost:hover .ic { background: var(--acc); color: var(--ink); }
+
+.btn-light { background: #fff; color: var(--ink); }
+.btn-light .ic { background: var(--ink); color: var(--acc); }
+
+.btn-sm { min-height: 48px; padding: 6px 6px 6px 22px; font-size: 15px; }
+.btn-sm .ic { width: 36px; height: 36px; }
+
+.btn-block { width: 100%; }
+
+/* ---------- 5. Чипы ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .88);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.chip .dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--acc);
+  box-shadow: 0 0 0 3px rgba(20, 24, 18, .12);
+}
+.chip-lime { background: var(--acc); }
+
+.pos-tl { position: absolute; top: 20px; left: 20px; z-index: 2; max-width: calc(100% - 40px); }
+.pos-tr { position: absolute; top: 20px; right: 20px; z-index: 2; }
+
+/* Заголовок секции: слева заголовок, справа пояснение/кнопка */
+.sec-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.sec-head-r {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  max-width: 380px;
+}
+.sec-head-r.end { align-items: flex-end; }
+
+/* =========================================================
+   6. Шапка
+   ========================================================= */
+.hdr {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  font-weight: 700;
+  font-size: 31px;
+  letter-spacing: -.055em;
+  line-height: .9;
+}
+.logo svg { width: .6em; height: .82em; }
+.logo .slash { fill: var(--acc); stroke: none; }
+
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #fff;
+}
+.nav a, .nav-dd-btn {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  transition: background .2s;
+}
+.nav a:hover, .nav-dd-btn:hover { background: var(--sage); }
+.nav-dd-btn { border: 0; background: transparent; color: inherit; cursor: pointer; font-family: inherit; }
+
+/* Выпадающий список «Каталог стендов» */
+.nav-dd { position: relative; }
+.nav-chev { transition: transform .3s var(--ease); }
+.nav-dd.is-open .nav-chev { transform: rotate(180deg); }
+.cat-menu {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -6px;
+  z-index: 70;
+  width: min(960px, calc(100vw - 80px));
+  padding: 14px 18px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 28px 56px -24px rgba(20, 24, 18, .3), 0 0 0 1px rgba(20, 24, 18, .05);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s, visibility .2s, transform .3s var(--ease);
+}
+/* «мостик», чтобы меню не закрывалось при переводе курсора */
+.cat-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.nav-dd.is-open .cat-menu { opacity: 1; visibility: visible; transform: none; }
+@media (hover: hover) {
+  .nav-dd:hover .cat-menu { opacity: 1; visibility: visible; transform: none; }
+  .nav-dd:hover .nav-chev { transform: rotate(180deg); }
+}
+.cat-menu ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav .cat-menu a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 40px 14px 10px;
+  border-radius: 0;
+  font-size: 15px;
+  white-space: nowrap;
+  transition: background .2s, padding .3s var(--ease);
+}
+.nav .cat-menu a:hover { background: transparent; padding-left: 16px; }
+.cat-go {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  margin-top: -13px;
+  width: 26px;
+  height: 26px;
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--acc);
+  color: var(--ink);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .25s, transform .3s var(--ease);
+}
+.cat-menu a:hover .cat-go, .cat-menu a:focus-visible .cat-go { opacity: 1; transform: none; }
+/* Ссылка на страницу каталога внизу панели */
+.nav .cat-menu .cat-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 2px 10px;
+  padding: 6px 6px 6px 16px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform .35s var(--ease);
+}
+.nav .cat-menu .cat-all:hover { background: var(--ink); padding-left: 16px; transform: scale(1.04); }
+.cat-all .ic { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--acc); color: var(--ink); transition: transform .45s var(--ease); }
+.cat-all:hover .ic { transform: rotate(-45deg); }
+.mnav .mnav-cat-list .mnav-cat-all { grid-column: 1 / -1; font-weight: 500; }
+
+/* «Каталог стендов» в мобильном меню */
+.mnav-cat summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: var(--r-sm);
+  font-size: 17px;
+  font-weight: 500;
+  list-style: none;
+  cursor: pointer;
+}
+.mnav-cat summary::-webkit-details-marker { display: none; }
+.mnav-cat summary:hover { background: var(--sage); }
+.mnav-cat summary svg { transition: transform .3s var(--ease); }
+.mnav-cat[open] summary svg { transform: rotate(180deg); }
+.mnav-cat-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 8px;
+  padding: 4px 8px 10px;
+}
+.mnav .mnav-cat-list a { padding: 10px 8px; font-size: 15px; font-weight: 400; border-radius: 10px; }
+
+.hdr-r { display: flex; align-items: center; gap: 8px; flex: none; }
+.hdr-cta { white-space: nowrap; }
+
+.icon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  transition: background .2s;
+}
+.icon-btn:hover { background: var(--sage); }
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 48px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: var(--acc);
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px var(--bg);
+}
+
+.burger { display: none; }
+
+/* Выпадающий список языков */
+.lang-dd { position: relative; }
+.lang-chev { transition: transform .3s var(--ease); }
+.lang[aria-expanded="true"] .lang-chev { transform: rotate(180deg); }
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 70;
+  min-width: 200px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 24px 48px -20px rgba(20, 24, 18, .3), 0 0 0 1px rgba(20, 24, 18, .05);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s, visibility .2s, transform .3s var(--ease);
+}
+.lang-dd.is-open .lang-menu { opacity: 1; visibility: visible; transform: none; }
+.lang-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 14px;
+  font-size: 15px;
+  transition: background .2s;
+}
+.lang-menu a:hover { background: var(--bg); }
+.lang-menu .code {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.lang-menu a[aria-current="page"] .code { background: var(--acc); }
+.lang-menu .name { flex: 1; }
+.lang-check { opacity: 0; }
+.lang-menu a[aria-current="page"] .lang-check { opacity: 1; }
+
+/* Языки в мобильном меню */
+.mnav-lang { display: flex; gap: 6px; padding: 8px 8px 0; }
+.mnav-lang a {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 12px;
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.mnav-lang a[aria-current="page"] { background: var(--acc); }
+
+/* Мобильное меню */
+.mnav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  flex-direction: column;
+  gap: 2px;
+  padding: 22px var(--gutter) 32px;
+  background: var(--bg);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.mnav.is-open { display: flex; }
+html.menu-open { overflow: hidden; }
+@media (min-width: 1281px) { .mnav.is-open { display: none; } }
+.mnav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.mnav .mnav-top .logo { padding: 0; border-radius: 0; font-size: 31px; font-weight: 700; }
+.mnav .mnav-top .logo:hover { background: none; }
+.mnav-close { background: #fff; }
+.mnav .mnav-lang a { background: #fff; }
+.mnav .mnav-lang a[aria-current="page"] { background: var(--acc); }
+.mnav a {
+  padding: 14px 16px;
+  border-radius: var(--r-sm);
+  font-size: 17px;
+  font-weight: 500;
+}
+.mnav a:hover { background: var(--sage); }
+.mnav .btn { margin-top: 8px; }
+
+/* =========================================================
+   7. Hero
+   ========================================================= */
+/* Баннер: фото на фоне, заголовок и кнопки поверх */
+.hero-media {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: clamp(540px, calc(52vw - 100px), 680px);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  background: #2A2F25;
+  color: #fff;
+}
+.hero-media .hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.01);
+  transition: transform 1.4s var(--ease);
+}
+.hero-media:hover .hero-bg { transform: scale(1.05); }
+/* Затемнение фона баннера на планшетах и телефонах */
+@media (max-width: 968px) {
+  .hero-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(14, 17, 12, .5);
+    pointer-events: none;
+  }
+}
+
+.hero-top {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+  align-items: end;
+  padding: 56px 40px 130px;
+}
+.hero-top .eyebrow { color: rgba(255, 255, 255, .8); }
+.hero-top .eyebrow::before { box-shadow: none; }
+.hero-top .h1 { color: #fff; font-size: clamp(40px, 12vw, 64px); }
+.hero-top .mark { color: var(--ink); }
+.hero-top .lead { color: rgba(255, 255, 255, .85); }
+.hero-top .btn-dark { background: #000; }
+
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-bottom: 8px;
+}
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.chain li { display: inline-flex; align-items: center; gap: 12px; }
+.chain li + li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* Контурная кнопка для тёмного фона */
+.btn-solid { background: var(--ink); color: #fff; }
+.btn-solid .ic { background: var(--acc); color: var(--ink); }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-white .ic { background: var(--acc); color: var(--ink); }
+.btn-ghost-light { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px #fff; }
+.btn-ghost-light { padding-right: 26px; }
+
+.hero-tabs {
+  position: absolute;
+  z-index: 2;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.htab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 100%;
+  padding: 14px 14px 14px 22px;
+  border-radius: 22px;
+  color: var(--ink);
+  background: #fff;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  transition: background .25s, transform .35s var(--ease);
+}
+.htab:hover, .htab.is-first { background: #fff; }
+.htab .t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.htab .t b { font-size: 19px; font-weight: 500; letter-spacing: -.015em; line-height: 1.2; }
+.htab .t .mono { color: var(--mute); }
+.htab .ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--acc);
+  color: var(--ink);
+  transition: background .25s, transform .45s var(--ease);
+}
+.htab:hover .ic, .htab.is-first .ic { background: var(--acc); }
+.htab:hover { transform: scale(1.03); }
+.htab:hover .ic { transform: rotate(-45deg); }
+
+/* =========================================================
+   8. Каталог конструкций
+   ========================================================= */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cat-grid > li { display: flex; }
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--r-md);
+  background: #fff;
+  transition: transform .4s var(--ease), box-shadow .4s;
+}
+.tile:hover { transform: translateY(-5px); box-shadow: 0 22px 44px -24px rgba(20, 24, 18, .35); }
+
+.tile-img {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  background: var(--render);
+  overflow: hidden;
+}
+.tile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .7s var(--ease);
+}
+.tile:hover .tile-img img { transform: scale(1.07); }
+
+/* Наведение: фото плавно затемняется, по центру появляется «Перейти» */
+.tile-img::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 24, 18, .45);
+  opacity: 0;
+  transition: opacity .4s var(--ease);
+}
+.tile-more {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 26px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.9);
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+}
+.tile:hover .tile-img::after,
+.tile:focus-visible .tile-img::after { opacity: 1; }
+.tile:hover .tile-more,
+.tile:focus-visible .tile-more { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+.tile-cap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px 8px;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+}
+
+/* Чип поверх фото карточки */
+.tile .chip { position: absolute; top: 22px; left: 22px; z-index: 1; }
+
+/* Лаймовая плитка-призыв */
+.cta-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-height: 260px;
+  padding: 28px;
+  border-radius: var(--r-md);
+  background: var(--acc);
+  transition: transform .4s var(--ease);
+}
+.cta-tile:hover { transform: translateY(-5px); }
+.cta-tile p { font-size: 25px; line-height: 1.12; letter-spacing: -.025em; font-weight: 500; }
+.cta-tile .ic {
+  align-self: flex-end;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--acc);
+  transition: transform .45s var(--ease);
+}
+.cta-tile:hover .ic { transform: rotate(-45deg); }
+
+/* =========================================================
+   9. Шалфейная полоса (направления, письма)
+   ========================================================= */
+.band-sage {
+  margin-top: var(--section);
+  padding-bottom: var(--section);
+  background: var(--sage);
+}
+.band-sage > .sec { padding-top: 110px; }
+
+/* ---------- Аккордеон направлений ---------- */
+.acc {
+  display: flex;
+  gap: 14px;
+  height: 580px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.acc-p {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 96px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: flex .8s cubic-bezier(.65, 0, .2, 1);
+}
+.acc-p.is-on { flex: 6 1 0%; }
+
+.t-photo { background: #2A2F25; color: #fff; }
+.t-lime  { background: var(--acc); }
+.t-render { background: var(--render); }
+
+.acc-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 17, 12, .05) 30%, rgba(14, 17, 12, .8) 100%);
+  transition: background .4s;
+}
+
+/* Сложенная карточка — сплошной цвет, раскрытая — фоновое фото */
+.acc-p .acc-bg,
+.acc-p .shade { opacity: 0; transition: opacity .6s var(--ease); }
+.acc-p.is-on .acc-bg,
+.acc-p.is-on .shade { opacity: 1; }
+.acc-p.is-on { color: #fff; }
+
+.acc-body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 34px;
+  transition: opacity .3s;
+}
+.acc-p:not(.is-on) .acc-body { opacity: 0; visibility: hidden; }
+
+.acc-open {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .45s .3s, transform .6s .3s var(--ease);
+}
+.acc-p.is-on .acc-open { opacity: 1; transform: none; }
+.acc-open h3 {
+  font-size: clamp(30px, 3.6vw, 56px);
+  line-height: 1;
+  letter-spacing: -.04em;
+  font-weight: 500;
+}
+.acc-open p { font-size: 19px; line-height: 1.4; max-width: 380px; }
+
+.acc-toggle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.acc-p.is-on .acc-toggle { display: none; }
+.vt {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -.015em;
+  white-space: nowrap;
+}
+.plus {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  transition: transform .35s;
+}
+.acc-toggle:hover .plus { transform: rotate(90deg); }
+.t-lime .plus { background: var(--ink); color: var(--acc); }
+.t-render .plus { background: var(--acc); }
+
+/* =========================================================
+   10. Проекты
+   ========================================================= */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.proj-grid > li { display: flex; }
+.proj-grid > .p-a { grid-column: span 7; }
+.proj-grid > .p-b { grid-column: span 5; }
+.proj-grid > .p-c { grid-column: span 5; }
+.proj-grid > .p-d { grid-column: span 7; }
+
+.proj {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 540px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: #CFD3C6;
+}
+.p-c .proj, .p-d .proj { height: 480px; }
+.proj > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease);
+}
+.proj:hover > img { transform: scale(1.05); }
+
+.proj-info {
+  position: absolute;
+  left: 16px;
+  right: 96px;
+  bottom: 16px;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 22px 20px;
+  border-radius: 22px;
+  background: #fff;
+}
+.proj-info .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.proj-info h3 { font-size: 23px; font-weight: 500; letter-spacing: -.025em; line-height: 1.15; }
+.proj-info .mono { color: var(--mute); font-size: 11px; }
+
+.proj-go {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  transition: background .3s, transform .5s var(--ease);
+}
+.proj:hover .proj-go { background: var(--acc); transform: rotate(45deg); }
+
+.count { color: var(--mute); }
+
+/* =========================================================
+   11. Дизайн и производство (эскиз → стенд)
+   ========================================================= */
+.paper {
+  padding: 56px;
+  border-radius: var(--r-xl);
+  background: #fff;
+}
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 56px;
+  align-items: center;
+}
+.split-txt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+}
+.split-txt .eyebrow { margin-bottom: -6px; }
+.split-txt > p { max-width: 440px; }
+
+.stages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.stages li {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 6px 16px 6px 7px;
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background .2s;
+}
+.stages li:hover { background: var(--acc); }
+.stages .n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.ba-wrap { display: flex; flex-direction: column; gap: 14px; }
+.ba {
+  --pos: 52%;
+  position: relative;
+  aspect-ratio: 7 / 5;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: #F7F8F2;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.ba > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ba-sketch {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+.ba-sketch svg { width: 100%; height: 100%; }
+.ba-sketch img { width: 100%; height: 100%; object-fit: cover; }
+.ba-sketch .logo-box { fill: var(--acc); stroke: #2C3427; stroke-width: 1.4; }
+.ba-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(20, 24, 18, .15);
+  pointer-events: none;
+}
+.ba-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  border-radius: 50%;
+  background: var(--acc);
+  color: var(--ink);
+  box-shadow: 0 10px 26px -8px rgba(20, 24, 18, .45);
+}
+.ba-range {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: ew-resize;
+}
+.ba .chip { pointer-events: none; }
+/* Видимый фокус для ползунка (сам input прозрачный) */
+.ba:has(.ba-range:focus-visible) .ba-knob { outline: 2px solid var(--ink); outline-offset: 3px; }
+.hint { display: flex; align-items: center; gap: 10px; color: var(--mute); }
+
+/* =========================================================
+   12. Порядок работы — «лесенка»
+   ========================================================= */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+  align-items: start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 250px;
+  padding: 22px;
+  border-radius: var(--r-md);
+  background: #fff;
+  transition: transform .4s var(--ease), box-shadow .4s;
+}
+.step:hover { transform: translateY(-6px); box-shadow: 0 22px 44px -26px rgba(20, 24, 18, .35); }
+
+/* Линия под карточками, соединяющая шаги, и зелёные точки по центру каждой */
+.steps { position: relative; padding-bottom: 46px; }
+.steps::before {
+  content: "";
+  position: absolute;
+  left: calc((100% - 70px) / 12);
+  right: calc((100% - 70px) / 12);
+  bottom: 15px;
+  height: 1px;
+  background: #C3C9B6;
+}
+.step { position: relative; }
+.step::after {
+  content: "";
+  position: absolute;
+  top: calc(100% + 24px);
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--acc);
+  box-shadow: 0 0 0 4px var(--bg);
+  transform: translateX(-50%);
+  transition: transform .4s var(--ease);
+}
+/* при подъёме карточки точка остаётся на линии */
+.step:hover::after { transform: translate(-50%, 6px); }
+.step .top { display: flex; justify-content: space-between; align-items: center; }
+.step .num {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #000;
+  color: var(--acc);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+.step h3 { margin-top: auto; font-size: 21px; font-weight: 500; letter-spacing: -.02em; line-height: 1.2; }
+.step p { font-size: 15px; line-height: 1.45; color: var(--mute); }
+
+.s6 { background: var(--acc); }
+.s6 .num { background: var(--ink); color: var(--acc); box-shadow: none; }
+.s6 p { color: var(--ink); }
+
+/* =========================================================
+   13. Аренда оборудования
+   ========================================================= */
+.rent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.rent-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 28px;
+  border-radius: var(--r-lg);
+  background: var(--sage);
+}
+.rent-intro .top { display: flex; flex-direction: column; gap: 14px; }
+.rent-intro .big { font-size: 26px; line-height: 1.15; letter-spacing: -.025em; font-weight: 500; }
+.counter { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; }
+.counter b { font-size: 80px; line-height: .85; letter-spacing: -.05em; font-weight: 500; }
+
+.prod {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: var(--r-lg);
+  background: #fff;
+  transition: transform .4s var(--ease), box-shadow .4s;
+}
+.prod:hover { transform: translateY(-5px); box-shadow: 0 22px 44px -24px rgba(20, 24, 18, .35); }
+.prod-img {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 22px;
+  background: var(--render);
+  overflow: hidden;
+}
+.prod-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.prod:hover .prod-img img { transform: scale(1.06); }
+.prod-img .chip { position: absolute; top: 14px; left: 14px; }
+.prod-b { display: flex; flex-direction: column; flex: 1; gap: 6px; padding: 18px 14px 8px; }
+.prod-b h3 { font-size: 22px; font-weight: 500; letter-spacing: -.02em; line-height: 1.2; }
+.prod-b .mono { color: var(--mute); }
+.prod-f {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-weight: 500;
+}
+.prod-b .mono + .prod-f { margin-top: 14px; }
+
+.add {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--acc);
+  cursor: pointer;
+  transition: transform .35s, background .3s, color .3s;
+}
+.add:hover { transform: rotate(90deg); }
+.add .i-check { display: none; }
+.add[aria-pressed="true"] { background: var(--ink); color: var(--acc); }
+.add[aria-pressed="true"]:hover { transform: scale(.94); }
+.add[aria-pressed="true"] .i-plus { display: none; }
+.add[aria-pressed="true"] .i-check { display: block; }
+
+/* =========================================================
+   14. О компании
+   ========================================================= */
+.about { padding-top: 150px; }
+.statement {
+  font-size: clamp(40px, 8.4vw, 136px);
+  line-height: 1.02;
+  letter-spacing: -.055em;
+  font-weight: 500;
+}
+@media (min-width: 1200px) and (max-width: 1920px) {
+  .statement { font-size: 88px; }
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: stretch;
+}
+/* Правая колонка растягивается на высоту левой:
+   текст сверху, подпись снизу */
+.about-r {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+  padding-top: 38px;
+}
+.about-r p { font-size: 23px; line-height: 1.42; letter-spacing: -.015em; }
+.about-meta { display: flex; flex-direction: column; gap: 10px; color: var(--mute); }
+
+/* Фото-капсула на всю ширину */
+.about-pill {
+  position: relative;
+  margin-top: 56px;
+  height: clamp(180px, 30vw, 540px);
+  border-radius: 999px;
+  overflow: hidden;
+  background: #CFD3C6;
+}
+.about-pill img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+.about-pill:hover img { transform: scale(1.04); }
+/* Лёгкое затемнение фото */
+.about-pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 17, 12, .35);
+  pointer-events: none;
+}
+/* Крупная надпись ADVEX по центру */
+.about-word {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: clamp(64px, 15vw, 240px);
+  font-weight: 700;
+  letter-spacing: -.05em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+/* =========================================================
+   15. Клиенты и партнёры
+   ========================================================= */
+.clients {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding-top: 96px;
+}
+.logos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 128px;
+  padding: 14px;
+  border: 1.5px dashed #B9BFAE;
+  border-radius: 20px;
+  text-align: center;
+  transition: background .25s, border-color .25s, transform .35s var(--ease);
+}
+.slot:hover { background: #fff; border-color: #fff; transform: scale(1.04); }
+/* Логотипы партнёров: белая карточка под белый фон логотипов */
+.slot { background: #fff; border-color: #fff; }
+.slot img { max-width: 100%; max-height: 88px; width: auto; height: auto; object-fit: contain; }
+.slot b { font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: #5F665A; }
+.slot .mono { color: var(--mute); font-size: 10.5px; }
+.note { margin-top: 16px; font-size: 13.5px; color: var(--mute); text-align: right; }
+
+/* =========================================================
+   16. Отзывы клиентов (слайдер)
+   ========================================================= */
+.rev-nav { display: flex; gap: 10px; }
+.rev-arrow {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--acc);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform .35s var(--ease), opacity .25s;
+}
+.rev-arrow:hover { transform: scale(1.06); }
+.rev-arrow:disabled { opacity: .35; cursor: default; transform: none; }
+.rev-arrow.prev svg { transform: scaleX(-1); }
+
+.rev-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Итоговая карточка с рейтингом */
+.rev-sum {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 36px;
+  border-radius: var(--r-lg);
+  background: var(--ink);
+  color: #fff;
+}
+.rev-score { font-size: 88px; line-height: .9; letter-spacing: -.05em; font-weight: 500; }
+.stars { display: flex; gap: 4px; color: var(--acc); }
+.rev-sum > p { font-size: 17px; line-height: 1.5; color: rgba(255, 255, 255, .72); max-width: 360px; }
+.rev-src { display: flex; flex-direction: column; gap: 10px; margin: auto 0 0; padding: 0; list-style: none; }
+.rev-src li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--r-sm);
+  background: rgba(255, 255, 255, .06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1);
+  font-size: 16px;
+  font-weight: 500;
+}
+.rev-src li b { margin-left: auto; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+.pin { flex: none; }
+
+/* Лента отзывов */
+.rev-main { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+.rev-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 16px) / 2);
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  flex: 1;
+}
+.rev-track::-webkit-scrollbar { display: none; }
+
+.rev-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 28px;
+  border-radius: var(--r-lg);
+  background: #fff;
+  scroll-snap-align: start;
+}
+.rev-head { display: flex; align-items: center; gap: 14px; }
+.avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 19px;
+  font-weight: 600;
+}
+.av-ink { background: var(--ink); color: var(--acc); }
+.av-lime { background: var(--acc); color: var(--ink); }
+.av-sage { background: var(--sage); color: var(--ink); }
+.rev-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rev-who b { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+.rev-who span { font-size: 14px; color: var(--mute); }
+.rev-card .stars { color: #C9E33A; }
+.rev-text { font-size: 16.5px; line-height: 1.55; }
+.rev-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--mute);
+}
+
+/* Полоса прогресса */
+.rev-bar { position: relative; height: 4px; border-radius: 2px; background: #CDD2C2; overflow: hidden; }
+.rev-bar span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 33%;
+  border-radius: 2px;
+  background: var(--ink);
+  transition: left .3s var(--ease), width .3s var(--ease);
+}
+
+/* =========================================================
+   17. FAQ (на <details>, работает без JS)
+   ========================================================= */
+.faq {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 56px;
+  align-items: start;
+}
+.faq-l { display: flex; flex-direction: column; gap: 40px; }
+
+
+.faq-r { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
+
+.qa {
+  border-radius: 22px;
+  background: #fff;
+  transition: box-shadow .3s;
+}
+.qa summary {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border-radius: 22px;
+  list-style: none;
+  cursor: pointer;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg);
+  font-size: 11px;
+  transition: background .3s;
+}
+.qa[open] .qn { background: var(--acc); }
+.qt { flex: 1; font-size: 19px; font-weight: 500; letter-spacing: -.015em; line-height: 1.3; }
+.qi {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg);
+  transition: transform .35s, background .3s, color .3s;
+}
+.qa summary:hover .qi { background: var(--acc); }
+.qa[open] .qi { background: var(--ink); color: #fff; transform: rotate(180deg); }
+.qa-a { padding: 0 80px 26px; font-size: 16.5px; line-height: 1.55; color: var(--mute); }
+
+/* =========================================================
+   18. Форма заявки
+   ========================================================= */
+.cta {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 12px;
+  padding: 12px;
+  border-radius: var(--r-xxl);
+  background: #fff;
+}
+.cta-l {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 44px;
+  border-radius: var(--r-lg);
+  background: var(--acc);
+  overflow: hidden;
+}
+.cta-l > p { font-size: 20px; line-height: 1.4; max-width: 420px; }
+/* Эскиз архитектора на фоне — еле заметный */
+.cta-sketch {
+  position: absolute;
+  right: -60px;
+  bottom: -40px;
+  z-index: 0;
+  width: 92%;
+  max-width: 600px;
+  opacity: .16;
+  pointer-events: none;
+}
+.cta-l > :not(.cta-sketch) { position: relative; z-index: 1; }
+.contacts {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: auto 0 0;
+  font-style: normal;
+}
+.contacts .row { display: flex; flex-direction: column; gap: 2px; }
+.contacts .row a, .contacts .row .v { font-size: 19px; font-weight: 500; letter-spacing: -.01em; }
+.contacts .mono { opacity: .7; }
+
+.cta-f { display: flex; flex-direction: column; gap: 20px; padding: 40px 36px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.fld { display: flex; flex-direction: column; gap: 8px; min-width: 0; border: 0; margin: 0; padding: 0; }
+.lbl { padding: 0; font-size: 14px; font-weight: 500; }
+
+.inp {
+  width: 100%;
+  height: 58px;
+  padding: 0 18px;
+  border: 1.5px solid transparent;
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  font-size: 16px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.inp::placeholder { color: #7A8073; }
+.inp:focus { border-color: var(--ink); background: #fff; }
+textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
+
+/* Темы обращения — радио-кнопки в виде чипов */
+.topics { display: flex; flex-wrap: wrap; gap: 8px; }
+.topic { position: relative; }
+.topic input { position: absolute; opacity: 0; pointer-events: none; }
+.topic span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.topic span:hover { background: var(--sage); }
+.topic input:checked + span { background: var(--ink); color: #fff; }
+.topic input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.chk { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.45; color: var(--mute); cursor: pointer; }
+.chk input { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--ink); }
+.chk a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+
+.sent {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: var(--r-sm);
+  background: var(--sage);
+  font-weight: 500;
+}
+.sent[hidden] { display: none; }
+.sent .ok { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--acc); }
+
+/* =========================================================
+   19. Подвал
+   ========================================================= */
+.foot { margin-top: var(--section); }
+.foot-card {
+  padding: 64px 56px 0;
+  border-radius: var(--r-xxl) var(--r-xxl) 0 0;
+  background: var(--ink);
+  color: #fff;
+  overflow: hidden;
+}
+.foot-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  padding-bottom: 56px;
+}
+.fcol { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
+.fcol ul { display: flex; flex-direction: column; gap: 11px; list-style: none; margin: 0; padding: 0; }
+.fcol .mono { color: rgba(255, 255, 255, .5); margin-bottom: 8px; }
+.fcol a, .fcol address { font-size: 15.5px; font-style: normal; color: rgba(255, 255, 255, .85); text-underline-offset: 4px; }
+.fcol a:hover { color: #fff; text-decoration: underline; }
+.fcol .spacer { height: 8px; }
+.fbrand .logo { margin-bottom: 14px; color: #fff; font-size: 31px; text-decoration: none; }
+.fbrand p { font-size: 17px; line-height: 1.45; max-width: 330px; color: rgba(255, 255, 255, .85); }
+.fbrand .mono { margin-top: 8px; }
+
+.foot-bar {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 22px 0 26px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  font-size: 13px;
+  color: rgba(255, 255, 255, .55);
+}
+.foot-bar nav { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.foot-bar nav a:hover { color: #fff; text-decoration: underline; }
+.foot-bar nav a[aria-current="page"] { color: #fff; }
+
+/* =========================================================
+   20. Адаптив
+   ========================================================= */
+@media (max-width: 1480px) {
+  .nav a, .nav-dd-btn { padding: 10px 9px; font-size: 14px; }
+  .nav .cat-menu a { padding: 13px 36px 13px 8px; }
+}
+
+/* Меню прячется в бургер раньше остальной адаптации,
+   чтобы длинные пункты на других языках не ломали шапку */
+@media (max-width: 1280px) {
+  .nav, .hdr-cta { display: none; }
+  .burger { display: grid; }
+}
+
+@media (max-width: 1100px) {
+  :root { --section: 100px; }
+
+  .hero-top { grid-template-columns: 1fr; gap: 28px; padding: 40px 32px 120px; }
+
+  .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .proj-grid > .p-a, .proj-grid > .p-b,
+  .proj-grid > .p-c, .proj-grid > .p-d { grid-column: span 12; }
+  .proj, .p-c .proj, .p-d .proj { height: 440px; }
+
+  .split, .faq, .cta, .about-grid, .clients { grid-template-columns: 1fr; }
+  .about-r { padding-top: 0; }
+
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .steps .step { margin-top: 0; }
+  .steps { padding-bottom: 0; }
+  .steps::before, .step::after { display: none; }
+
+  .rent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rev-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .note { text-align: left; }
+}
+
+@media (max-width: 720px) {
+  :root { --gutter: 16px; --section: 80px; }
+
+  .band-sage > .sec { padding-top: 72px; }
+  .lang { display: none; }
+
+  .hero-top { padding: 32px 18px 236px; }
+  .hero-media { min-height: 0; border-radius: var(--r-md); }
+  .hero-tabs { grid-template-columns: 1fr; gap: 8px; left: 10px; right: 10px; bottom: 10px; }
+  .htab { padding: 10px 10px 10px 18px; }
+  .htab .t b { font-size: 16px; }
+
+  .cat-grid { gap: 10px; }
+  .tile { padding: 6px; border-radius: 20px; }
+  .tile-cap { font-size: 14px; padding: 10px 8px 6px; }
+  .cat-grid > li.is-cta { grid-column: span 2; }
+  .cta-tile { min-height: 200px; }
+
+  .acc { flex-direction: column; height: auto; }
+  .acc-p, .acc-p.is-on { flex: none; height: 92px; }
+  .acc-p.is-on { height: 460px; }
+  .acc-toggle { flex-direction: row; gap: 16px; padding: 0 20px; }
+  .vt { flex: 1; writing-mode: horizontal-tb; transform: none; font-size: 19px; text-align: left; white-space: normal; }
+  .acc-body { padding: 24px; }
+
+  .proj, .p-c .proj, .p-d .proj { height: 380px; border-radius: 22px; }
+  .proj-info { left: 12px; right: 12px; bottom: 12px; padding: 14px 16px; }
+  .proj-go { top: 12px; right: 12px; bottom: auto; width: 52px; height: 52px; }
+
+  .paper { padding: 20px; border-radius: var(--r-md); }
+
+  .steps, .rent-grid, .grid2 { grid-template-columns: 1fr; }
+  .step { min-height: 0; }
+  .step h3 { margin-top: 8px; }
+  .rev-track { grid-auto-columns: 86%; }
+  .rev-sum { padding: 26px; }
+  .rev-score { font-size: 64px; }
+  .rev-arrow { width: 48px; height: 48px; }
+  .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .about { padding-top: 100px; }
+
+  .cta { padding: 8px; border-radius: 26px; }
+  .cta-l { padding: 28px 22px; }
+  .cta-f { padding: 24px 14px; }
+
+  .qa summary { gap: 12px; padding: 16px; }
+  .qt { font-size: 16.5px; }
+  .qa-a { padding: 0 18px 20px; }
+
+  .foot-grid { grid-template-columns: 1fr; }
+  .foot-card { padding: 40px 20px 0; border-radius: 26px 26px 0 0; }
+}
+
+@media (max-width: 359px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .cat-grid > li.is-cta { grid-column: span 1; }
+  .btn { padding-left: 20px; }
+}
+
+/* Кнопка «Наверх» */
+.to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--acc);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 12px 28px -12px rgba(20, 24, 18, .45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity .3s, visibility .3s, transform .35s var(--ease);
+}
+.to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
+.to-top:hover { transform: scale(1.08); }
+@media (max-width: 720px) {
+  .to-top { right: 16px; bottom: 16px; width: 48px; height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ===== Компоненты внутренних страниц (из каталога) ===== */
+.crumbs { margin: 0; padding: 12px 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; color: var(--mute); }
+.crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.crumbs li + li::before { content: "/"; color: #A3A99B; }
+.crumbs a:hover { color: var(--ink); }
+.crumbs [aria-current="page"] { color: var(--ink); }
+.cta-band { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; min-height: 360px; padding: 56px; border-radius: var(--r-xl); background: var(--acc); }
+.cta-band > :not(.cta-sketch) { position: relative; z-index: 1; }
+.cta-band p { font-size: 20px; line-height: 1.4; max-width: 520px; }
+.cta-band .cta-sketch { width: 58%; max-width: 620px; right: -40px; bottom: -60px; }
+@media (max-width: 720px) { .cta-band { padding: 28px 22px; min-height: 0; } }
+
+/* ===== Оформление самой страницы гайдлайна ===== */
+.ds-top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:22px; padding-bottom:22px; }
+.ds-ver { color: var(--mute); }
+.ds-hero { padding-top: 40px; padding-bottom: 24px; }
+.ds-hero .page-title { font-size: clamp(42px, 6vw, 88px); line-height:.98; letter-spacing:-.045em; font-weight:500; }
+.ds-hero p.lead { margin-top: 24px; max-width: 640px; }
+.ds-toc { display:flex; flex-wrap:wrap; gap:8px; margin-top: 36px; padding:0; list-style:none; }
+.ds-toc a { display:inline-flex; min-height:40px; align-items:center; padding:6px 14px; border-radius:999px; background:#fff; font-size:14px; transition: background .2s; }
+.ds-toc a:hover { background: var(--acc); }
+.ds-sec { padding-top: 96px; scroll-margin-top: 24px; }
+.ds-sec > .h2 { margin-bottom: 14px; }
+.ds-intro { max-width: 760px; color: var(--mute); font-size: 18px; line-height: 1.5; margin-bottom: 36px; }
+.ds-h3 { font-size: 22px; font-weight: 600; letter-spacing: -.02em; margin: 40px 0 16px; }
+.ds-card { background:#fff; border-radius: var(--r-lg); padding: 32px; }
+.ds-grid { display:grid; gap:16px; }
+.ds-grid > * { min-width: 0; }
+.ds-type-row > * { min-width: 0; overflow-wrap: anywhere; }
+.ds-card { min-width: 0; }
+.ds-table code, .ds-rules code, .ds-intro code { overflow-wrap: anywhere; word-break: break-word; }
+.ds-rules li { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 720px) { .ds-table { font-size: 13.5px; } .ds-table td, .ds-table th { padding-right: 8px; } }
+.ds-g2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.ds-g3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.ds-g4 { grid-template-columns: repeat(4, minmax(0,1fr)); }
+.ds-rules { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+.ds-rules li { position:relative; padding-left: 26px; line-height:1.5; }
+.ds-rules li::before { content:""; position:absolute; left:0; top:.45em; width:12px; height:12px; border-radius:2px; background: var(--acc); transform: skewX(-20deg); }
+.ds-rules.no li::before { background: #E5442C; transform:none; border-radius:50%; width:10px; height:10px; }
+.ds-do { border-top: 4px solid var(--acc); }
+.ds-dont { border-top: 4px solid #E5442C; }
+.ds-label { display:block; margin-bottom: 14px; color: var(--mute); }
+.sw { border-radius: var(--r-md); overflow:hidden; background:#fff; }
+.sw-c { height: 120px; display:flex; align-items:flex-end; padding:14px; }
+.sw-b { padding: 16px; display:flex; flex-direction:column; gap:4px; font-size:14px; }
+.sw-b b { font-size:16px; }
+.sw-b code, .ds code { font-family: var(--font-mono); font-size: 12.5px; background: var(--bg); padding: 2px 6px; border-radius: 6px; }
+.ds-table { width:100%; border-collapse: collapse; font-size: 15px; }
+.ds-table th { text-align:left; font-family: var(--font-mono); font-size: 11.5px; letter-spacing:.06em; text-transform:uppercase; color: var(--mute); font-weight:500; padding: 0 12px 12px 0; border-bottom: 1px solid var(--line); }
+.ds-table td { padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ds-scroll { overflow-x:auto; }
+.ds-type-row { display:grid; grid-template-columns: 220px minmax(0,1fr); gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.ds-type-row:last-child { border-bottom: 0; }
+.ds-type-meta { color: var(--mute); font-size: 13.5px; line-height: 1.5; }
+.ds-demo { display:flex; flex-wrap:wrap; align-items:center; gap: 14px; }
+.ds-dark { background: var(--ink); color:#fff; }
+.ds-photo { background: linear-gradient(135deg,#3B4636,#1C2119); color:#fff; }
+.ds-space { display:flex; align-items:flex-end; gap: 14px; flex-wrap: wrap; }
+.ds-space i { display:block; background: var(--acc); border-radius: 4px; }
+.ds-space span { display:flex; flex-direction:column; align-items:center; gap: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--mute); }
+.ds-radius { display:flex; gap: 16px; flex-wrap: wrap; }
+.ds-radius div { width: 120px; height: 90px; background: var(--sage); display:flex; align-items:flex-end; padding: 10px; font-family: var(--font-mono); font-size: 11px; }
+.ds-icons { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap: 12px; }
+.ds-icons div { background:#fff; border-radius: var(--r-sm); padding: 18px 12px 12px; display:flex; flex-direction:column; align-items:center; gap:12px; font-family: var(--font-mono); font-size: 11px; color: var(--mute); }
+.ds-pre { background: var(--ink); color: #E9ECE3; border-radius: var(--r-md); padding: 24px; overflow-x:auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; white-space: pre; }
+.ds-check { margin:0; padding:0; list-style:none; columns: 2; column-gap: 40px; }
+.ds-check li { break-inside: avoid; display:flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.ds-check li::before { content:""; flex:none; width: 20px; height: 20px; border-radius: 6px; box-shadow: inset 0 0 0 1.5px var(--ink); margin-top: 2px; }
+@media (max-width: 1100px) { .ds-g3, .ds-g4 { grid-template-columns: repeat(2, minmax(0,1fr)); } .ds-check { columns: 1; } }
+@media (max-width: 720px) { .ds-g2, .ds-g3, .ds-g4 { grid-template-columns: 1fr; } .ds-type-row { grid-template-columns: 1fr; gap: 8px; } .ds-card { padding: 22px; } .ds-sec { padding-top: 72px; } }
+
+</style>
+</head>
+<body>
+<!-- Иконки (используются через <use href="#...">) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" fill="currentColor"/><circle cx="12" cy="10" r="2.6" fill="#141812"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></g></symbol>
+  <symbol id="i-burger" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-zoom" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M11 8v6M8 11h6"/></g></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-slash" viewBox="0 0 22 30"><polygon class="slash" points="9,1 21,1 13,29 1,29"/></symbol>
+</svg>
+
+<header class="wrap ds-top">
+  <a href="../index.html" class="logo" aria-label="ADVEX — на главную">advex<svg viewBox="0 0 22 30" aria-hidden="true"><polygon class="slash" points="9,1 21,1 13,29 1,29"/></svg></a>
+  <span class="ds-ver mono">Дизайн-система · v1.0 · октябрь 2026</span>
+</header>
+
+<main class="wrap ds" id="main">
+
+<section class="ds-hero">
+  <p class="eyebrow mono">Гайдлайны ADVEX</p>
+  <h1 class="page-title">Дизайн-система</h1>
+  <p class="lead">Правила, по которым собирается каждая страница сайта ADVEX. Источник истины — главная страница: все токены и компоненты ниже взяты из её кода и отрисованы на нём же. Новая страница собирается только из этих элементов. Если чего-то не хватает — сначала добавляем компонент сюда, потом используем.</p>
+  <ul class="ds-toc"><li><a href="#principles">Принципы</a></li><li><a href="#color">Цвет</a></li><li><a href="#type">Типографика</a></li><li><a href="#grid">Сетка и отступы</a></li><li><a href="#radius">Скругления и тени</a></li><li><a href="#icons">Иконки</a></li><li><a href="#buttons">Кнопки</a></li><li><a href="#elements">Элементы</a></li><li><a href="#cards">Карточки</a></li><li><a href="#sections">Секции</a></li><li><a href="#forms">Формы</a></li><li><a href="#nav">Навигация</a></li><li><a href="#motion">Анимация</a></li><li><a href="#images">Изображения</a></li><li><a href="#content">Тексты</a></li><li><a href="#i18n">Языки и URL</a></li><li><a href="#code">Правила кода</a></li><li><a href="#checklist">Чек-лист</a></li></ul>
+</section>
+
+<!-- ============ ПРИНЦИПЫ ============ -->
+<section class="ds-sec" id="principles">
+  <h2 class="h2">Принципы</h2>
+  <p class="ds-intro">Шесть правил, которые решают спорные случаи. Если решение не описано ниже — выбирайте вариант, который лучше им соответствует.</p>
+  <div class="ds-grid ds-g3">
+    <div class="ds-card"><span class="ds-label mono">01</span><h3 class="h3" style="font-size:22px">Светло и воздушно</h3><p class="muted" style="margin-top:10px">Сайт всегда в светлой теме: тёплый светлый фон, белые и шалфейные карточки. Тёмный цвет — только для кнопок, футера и отдельных акцентных карточек.</p></div>
+    <div class="ds-card"><span class="ds-label mono">02</span><h3 class="h3" style="font-size:22px">Лайм — это сигнал</h3><p class="muted" style="margin-top:10px">Лаймовый цвет показывает действие или главное слово. Не больше одной лаймовой панели на экран, не используем лайм как фон секции целиком.</p></div>
+    <div class="ds-card"><span class="ds-label mono">03</span><h3 class="h3" style="font-size:22px">Крупный текст, тихие подписи</h3><p class="muted" style="margin-top:10px">Большие плотные заголовки Onest и мелкие моноширинные подписи IBM Plex Mono. Контраст размеров вместо жирности и цвета.</p></div>
+    <div class="ds-card"><span class="ds-label mono">04</span><h3 class="h3" style="font-size:22px">Мягкая геометрия</h3><p class="muted" style="margin-top:10px">Крупные скругления 24–36 px, круглые кнопки-стрелки, капсулы. Острых углов и тонких рамок-«коробок» нет.</p></div>
+    <div class="ds-card"><span class="ds-label mono">05</span><h3 class="h3" style="font-size:22px">Реальные проекты</h3><p class="muted" style="margin-top:10px">В фото — настоящие стенды ADVEX и предметные рендеры конструкций. Без стоковых людей и без текста внутри картинок.</p></div>
+    <div class="ds-card"><span class="ds-label mono">06</span><h3 class="h3" style="font-size:22px">Одно главное действие</h3><p class="muted" style="margin-top:10px">На каждом экране одна главная кнопка. Остальные — второстепенные стили. Каждый блок по смыслу отвечает на один вопрос.</p></div>
+  </div>
+</section>
+
+<!-- ============ ЦВЕТ ============ -->
+<section class="ds-sec" id="color">
+  <h2 class="h2">Цвет</h2>
+  <p class="ds-intro">Палитра задаётся переменными в <code>:root</code>. В коде используем только переменные, не hex-коды. Новый цвет добавляется сюда, а не в отдельный блок.</p>
+  <div class="ds-grid ds-g4">
+    <div class="sw"><div class="sw-c" style="background:#F2F3EE;color:var(--ink)"><span class="mono">#F2F3EE</span></div><div class="sw-b"><b>Фон страницы</b><code>--bg</code><span class="muted">Основной фон всех страниц</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#FFFFFF;color:var(--ink)"><span class="mono">#FFFFFF</span></div><div class="sw-b"><b>Бумага</b><code>--paper</code><span class="muted">Карточки, панели, кнопки на тёмном</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#E5E9DB;color:var(--ink)"><span class="mono">#E5E9DB</span></div><div class="sw-b"><b>Шалфей</b><code>--sage</code><span class="muted">Полосы-секции, плашки, ховер пунктов меню</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#DEDEDF;color:var(--ink)"><span class="mono">#DEDEDF</span></div><div class="sw-b"><b>Рендер</b><code>--render</code><span class="muted">Фон под 3D-рендерами конструкций</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#141812;color:#fff"><span class="mono">#141812</span></div><div class="sw-b"><b>Чернила</b><code>--ink</code><span class="muted">Текст, тёмные кнопки, футер</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#2B3325;color:#fff"><span class="mono">#2B3325</span></div><div class="sw-b"><b>Чернила ховер</b><code>--ink-hover</code><span class="muted">Ховер тёмных контурных кнопок</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#575E52;color:#fff"><span class="mono">#575E52</span></div><div class="sw-b"><b>Приглушённый</b><code>--mute</code><span class="muted">Второстепенный текст, подписи</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#D6DACD;color:var(--ink)"><span class="mono">#D6DACD</span></div><div class="sw-b"><b>Линия</b><code>--line</code><span class="muted">Разделители, рамки полей</span></div></div>
+    <div class="sw"><div class="sw-c" style="background:#D4F14B;color:var(--ink)"><span class="mono">#D4F14B</span></div><div class="sw-b"><b>Лайм</b><code>--acc</code><span class="muted">Акценты: кружки стрелок, плашка .mark, активные состояния</span></div></div>
+  </div>
+  <div class="ds-grid ds-g2" style="margin-top:16px">
+    <div class="ds-card ds-do"><span class="ds-label mono">Можно</span><ul class="ds-rules">
+      <li>Текст <code>--ink</code> на <code>--bg</code>, <code>--paper</code>, <code>--sage</code> и <code>--acc</code></li>
+      <li>Белый текст на <code>--ink</code> и на фото с затемнением от 35%</li>
+      <li>Одна лаймовая панель или карточка на экран (CTA, финальный шаг)</li>
+      <li>Чередовать фон секций: <code>--bg</code> → <code>--sage</code> → <code>--bg</code></li>
+    </ul></div>
+    <div class="ds-card ds-dont"><span class="ds-label mono">Нельзя</span><ul class="ds-rules no">
+      <li>Тёмная тема страницы или тёмные секции подряд</li>
+      <li>Текст <code>--mute</code> на <code>--sage</code> мельче 14 px</li>
+      <li>Лайм для текста на светлом фоне — не читается</li>
+      <li>Градиенты, кроме затемнения фото снизу</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ ТИПОГРАФИКА ============ -->
+<section class="ds-sec" id="type">
+  <h2 class="h2">Типографика</h2>
+  <p class="ds-intro">Два шрифта Google Fonts: <b>Onest</b> (300–700) для всего текста и <b>IBM Plex Mono</b> (400–500) для подписей. Межбуквенный интервал заголовков отрицательный, у подписей — положительный.</p>
+  <div class="ds-card">
+    <div class="ds-type-row"><div class="ds-type-meta"><b>H1 баннера главной</b><br><code>.hero-top .h1</code><br>clamp(40px, 12vw, 64px) · 500 · −0.045em</div><div><span class="h1" style="font-size:clamp(40px,12vw,64px)">Выставочные стенды. <span class="mark">под ключ.</span></span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>H1 внутренней страницы</b><br><code>.page-title</code><br>clamp(42px, 6vw, 88px) · 500 · −0.045em</div><div><span class="page-title" style="font-size:clamp(42px,6vw,88px);line-height:.98;letter-spacing:-.045em;font-weight:500">Каталог стендов</span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Заявление</b><br><code>.statement</code><br>88 px (1200–1920) · 500 · −0.055em</div><div><span class="statement" style="font-size:clamp(40px,6vw,88px)">Создаём место</span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>H2 секции</b><br><code>.h2</code><br>clamp(34px, 4.6vw, 68px) · 500 · −0.04em</div><div><span class="h2">Найдём форму для вашей идеи.</span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>H3 / заголовок блока</b><br><code>.h3</code><br>30 px · 500 · −0.03em</div><div><span class="h3">Клиенты и партнёры</span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Заголовок карточки</b><br>19–23 px · 500 · −0.02em</div><div><span style="font-size:22px;font-weight:500;letter-spacing:-.02em">Стенд Sensemi Azerbaijan</span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Лид</b><br><code>.lead</code><br>20 px · 1.45 · --mute</div><div><p class="lead">Выставочные стенды под ключ — от первой идеи до встречи с вашими клиентами.</p></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Основной текст</b><br>16–17 px · 1.5–1.55</div><div><p>Объединяем проектирование, визуальную концепцию и организацию производства в последовательный процесс.</p></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Подпись / мелкий текст</b><br>13.5–15 px · --mute</div><div><p class="muted" style="font-size:14px">Островная экспозиция</p></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Моно-подпись</b><br><code>.mono</code><br>12 px · 500 · UPPERCASE · +0.06em</div><div><span class="mono">Дизайн. Производство. Впечатление.</span></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Надзаголовок</b><br><code>.eyebrow.mono</code><br>моно + косой лаймовый маркер</div><div><p class="eyebrow mono" style="margin:0">От идеи — к конструкции</p></div></div>
+    <div class="ds-type-row"><div class="ds-type-meta"><b>Плашка-акцент</b><br><code>.mark</code><br>лайм, скругление .16em, отступ сверху 14 px</div><div><span class="h2">Ваша идея — <span class="mark">под ключ.</span></span></div></div>
+  </div>
+  <div class="ds-grid ds-g2" style="margin-top:16px">
+    <div class="ds-card ds-do"><span class="ds-label mono">Правила</span><ul class="ds-rules">
+      <li>Над каждым H2 секции — надзаголовок <code>.eyebrow</code> (2–5 слов)</li>
+      <li>Заголовки разбиваем на строки по смыслу через <code>&lt;br&gt;</code>, 2–3 строки максимум</li>
+      <li><code>.mark</code> — только на 1–3 последних слова заголовка, не чаще раза в блоке</li>
+      <li>Заголовки секций заканчиваются точкой, если это фраза; названия (каталог, клиенты) — без точки</li>
+    </ul></div>
+    <div class="ds-card ds-dont"><span class="ds-label mono">Нельзя</span><ul class="ds-rules no">
+      <li>Жирный (600+) в заголовках крупнее 30 px</li>
+      <li>Заглавные буквы вручную — только через <code>.mono</code></li>
+      <li>Курсив, подчёркивания в тексте, кроме ссылок в формах</li>
+      <li>Строка основного текста длиннее ~75 символов</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ СЕТКА ============ -->
+<section class="ds-sec" id="grid">
+  <h2 class="h2">Сетка и отступы</h2>
+  <p class="ds-intro">Контейнер <code>.wrap</code> шириной до 1440 px с полями 40 px (16 px на телефоне). Внутри — сетки на 4 и 12 колонок. Расстояния кратны 2 и берутся из шкалы ниже.</p>
+  <div class="ds-card">
+    <span class="ds-label mono">Шкала отступов, px</span>
+    <div class="ds-space">
+      <span><i style="width:8px;height:8px"></i>8</span><span><i style="width:10px;height:10px"></i>10</span><span><i style="width:12px;height:12px"></i>12</span><span><i style="width:16px;height:16px"></i>16</span><span><i style="width:20px;height:20px"></i>20</span><span><i style="width:24px;height:24px"></i>24</span><span><i style="width:28px;height:28px"></i>28</span><span><i style="width:32px;height:32px"></i>32</span><span><i style="width:40px;height:40px"></i>40</span><span><i style="width:48px;height:48px"></i>48</span><span><i style="width:56px;height:56px"></i>56</span>
+    </div>
+  </div>
+  <div class="ds-card ds-scroll" style="margin-top:16px">
+    <table class="ds-table">
+      <tr><th>Что</th><th>Десктоп</th><th>≤1100</th><th>≤720</th></tr>
+      <tr><td>Поля контейнера <code>--gutter</code></td><td>40</td><td>40</td><td>16</td></tr>
+      <tr><td>Отступ между секциями <code>--section</code></td><td>120</td><td>100</td><td>80</td></tr>
+      <tr><td>Заголовок секции → контент</td><td>48</td><td>48</td><td>48</td></tr>
+      <tr><td>Зазор в сетках карточек</td><td>16 (проекты 20)</td><td>16</td><td>10–16</td></tr>
+      <tr><td>Внутренний отступ карточки</td><td>22–36</td><td>22–36</td><td>20–26</td></tr>
+      <tr><td>Колонки каталога / аренды</td><td>4</td><td>2</td><td>2 / 1</td></tr>
+    </table>
+  </div>
+  <h3 class="ds-h3">Брейкпоинты</h3>
+  <div class="ds-card ds-scroll">
+    <table class="ds-table">
+      <tr><th>Ширина</th><th>Что меняется</th></tr>
+      <tr><td>≤1480</td><td>Пункты меню плотнее</td></tr>
+      <tr><td>≤1280</td><td>Меню уходит в бургер (полноэкранное), кнопка «Обсудить проект» скрыта из шапки</td></tr>
+      <tr><td>≤1100</td><td>Двухколоночные блоки встают в столбик, сетки 4 → 2</td></tr>
+      <tr><td>≤968</td><td>Мобильный фон баннера (<code>bg_m.png</code>) и затемнение 50%</td></tr>
+      <tr><td>≤720</td><td>Телефон: поля 16, сетки 2 → 1, аккордеоны горизонтально</td></tr>
+      <tr><td>≤359</td><td>Каталог в одну колонку</td></tr>
+    </table>
+  </div>
+  <p class="muted" style="margin-top:14px">Каждая страница проверяется на ширинах 320, 375, 414, 768, 1024, 1100, 1280, 1366, 1440, 1920: без горизонтального скролла и вылезающих элементов.</p>
+</section>
+
+<!-- ============ СКРУГЛЕНИЯ ============ -->
+<section class="ds-sec" id="radius">
+  <h2 class="h2">Скругления и тени</h2>
+  <p class="ds-intro">Чем крупнее элемент, тем больше скругление. Кнопки, чипы и плашки — полностью круглые (999 px).</p>
+  <div class="ds-card">
+    <div class="ds-radius">
+      <div style="border-radius:16px">--r-sm 16</div><div style="border-radius:24px">--r-md 24</div><div style="border-radius:28px">--r-lg 28</div><div style="border-radius:32px">--r-xl 32</div><div style="border-radius:36px">--r-xxl 36</div><div style="border-radius:999px;width:160px">999 капсула</div>
+    </div>
+    <table class="ds-table" style="margin-top:28px">
+      <tr><th>Тень</th><th>Где</th><th>Значение</th></tr>
+      <tr><td>Подъём карточки</td><td>ховер карточек каталога, шагов, товаров</td><td><code>0 22px 44px -24px rgba(20,24,18,.35)</code></td></tr>
+      <tr><td>Выпадающее меню</td><td>каталог в шапке, языки</td><td><code>0 28px 56px -24px rgba(20,24,18,.3)</code> + рамка 1 px 5%</td></tr>
+      <tr><td>Плавающая кнопка</td><td>«Наверх»</td><td><code>0 12px 28px -12px rgba(20,24,18,.45)</code></td></tr>
+    </table>
+    <p class="muted" style="margin-top:14px">В покое у карточек тени нет — только фон. Тень появляется на ховере.</p>
+  </div>
+</section>
+
+<!-- ============ ИКОНКИ ============ -->
+<section class="ds-sec" id="icons">
+  <h2 class="h2">Иконки</h2>
+  <p class="ds-intro">Линейные иконки 24×24, толщина линии 1.7–2, скруглённые концы, цвет <code>currentColor</code>. Хранятся одним SVG-спрайтом в начале <code>&lt;body&gt;</code> и вставляются так: <code>&lt;svg width="18" height="18"&gt;&lt;use href="#i-arrow"/&gt;&lt;/svg&gt;</code>. Новая иконка добавляется в спрайт всех страниц.</p>
+  <div class="ds-icons"><div><svg width="24" height="24" aria-hidden="true"><use href="#i-arrow"/></svg>i-arrow</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-arrow-ur"/></svg>i-arrow-ur</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-arrow-up"/></svg>i-arrow-up</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-star"/></svg>i-star</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-pin"/></svg>i-pin</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-close"/></svg>i-close</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-chev"/></svg>i-chev</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-plus"/></svg>i-plus</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-check"/></svg>i-check</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-bag"/></svg>i-bag</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-burger"/></svg>i-burger</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-flag"/></svg>i-flag</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-zoom"/></svg>i-zoom</div><div><svg width="24" height="24" aria-hidden="true"><use href="#i-swap"/></svg>i-swap</div></div>
+  <p class="muted" style="margin-top:14px">Стрелка в кнопках — всегда горизонтальная <code>i-arrow</code>. Диагональная <code>i-arrow-ur</code> — только в карточках проектов.</p>
+</section>
+
+<!-- ============ КНОПКИ ============ -->
+<section class="ds-sec" id="buttons">
+  <h2 class="h2">Кнопки</h2>
+  <p class="ds-intro">Кнопка — капсула с текстом и круглой иконкой-стрелкой справа. Ховер у всех кнопок одинаковый: кнопка увеличивается на 4%, стрелка поворачивается вверх на −45°. Цвет при ховере не меняется (кроме контурной на светлом фоне).</p>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card"><span class="ds-label mono">На светлом фоне</span><div class="ds-demo">
+      <a href="#buttons" class="btn btn-dark">Главная: btn-dark<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="#buttons" class="btn btn-solid btn-sm">btn-solid btn-sm<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="#buttons" class="btn btn-ghost btn-sm">btn-ghost btn-sm<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+    </div></div>
+    <div class="ds-card ds-photo"><span class="ds-label mono" style="color:rgba(255,255,255,.7)">На фото и тёмном</span><div class="ds-demo">
+      <a href="#buttons" class="btn btn-white">btn-white<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="#buttons" class="btn btn-ghost-light">btn-ghost-light</a>
+      <a href="#buttons" class="btn btn-light btn-sm">btn-light<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+    </div></div>
+  </div>
+  <div class="ds-card ds-scroll" style="margin-top:16px">
+    <table class="ds-table">
+      <tr><th>Класс</th><th>Когда</th></tr>
+      <tr><td><code>.btn-dark</code></td><td>Главное действие на светлом фоне и на лаймовой панели</td></tr>
+      <tr><td><code>.btn-solid</code></td><td>Переход в раздел из заголовка секции («Весь каталог», «Все проекты»)</td></tr>
+      <tr><td><code>.btn-white</code></td><td>Главное действие на фото/тёмном фоне («Рассчитать стоимость»)</td></tr>
+      <tr><td><code>.btn-ghost-light</code></td><td>Второе действие на фото — без иконки, обводка 1 px</td></tr>
+      <tr><td><code>.btn-ghost</code></td><td>Второе действие на светлом фоне</td></tr>
+      <tr><td><code>.btn-sm</code></td><td>Кнопки в заголовках секций и карточках (высота 48 вместо 56)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ЭЛЕМЕНТЫ ============ -->
+<section class="ds-sec" id="elements">
+  <h2 class="h2">Элементы</h2>
+  <div class="ds-grid ds-g3">
+    <div class="ds-card"><span class="ds-label mono">Чипы</span><div class="ds-demo"><span class="chip"><span class="dot"></span>Проект ADVEX</span><span class="chip chip-lime">Индивидуальный проект</span><span class="chip">Столы</span></div><p class="muted" style="margin-top:14px;font-size:14px">Метки поверх фото и карточек. Текст до 3 слов.</p></div>
+    <div class="ds-card"><span class="ds-label mono">Хлебные крошки</span><ol class="crumbs mono" style="padding:0"><li><a href="#elements">Главная</a></li><li><a href="#elements">Каталог стендов</a></li><li><span aria-current="page">Ролл-ап</span></li></ol><p class="muted" style="margin-top:14px;font-size:14px">На всех внутренних страницах над заголовком. Последний пункт — текущая страница, без ссылки.</p></div>
+    <div class="ds-card"><span class="ds-label mono">Круглые кнопки</span><div class="ds-demo"><button type="button" class="rev-arrow prev" aria-label="Назад"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></button><button type="button" class="rev-arrow" aria-label="Вперёд"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></button><button type="button" class="add" aria-label="Добавить"><svg width="20" height="20" aria-hidden="true"><use href="#i-plus"/></svg></button><button type="button" class="add" aria-pressed="true" aria-label="Добавлено"><svg class="i-plus" width="20" height="20" aria-hidden="true"><use href="#i-plus"/></svg><svg class="i-check" width="20" height="20" aria-hidden="true"><use href="#i-check"/></svg></button></div><p class="muted" style="margin-top:14px;font-size:14px">Слайдеры, «добавить», «наверх»: лайм 48–56 px, ховер — увеличение.</p></div>
+  </div>
+</section>
+
+<!-- ============ КАРТОЧКИ ============ -->
+<section class="ds-sec" id="cards">
+  <h2 class="h2">Карточки</h2>
+  <p class="ds-intro">Все карточки: белый фон (или шалфей), скругление 24–28 px, без рамок. Ховер — подъём на 5 px и мягкая тень; фото внутри слегка приближается.</p>
+  <div class="ds-grid ds-g4">
+    <a href="#cards" class="tile"><div class="tile-img"><img src="../img/category/01-Ролл-ап.png" alt=""><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Конструкция .tile</span></div></a>
+    <div class="step"><div class="top"><span class="num">01</span></div><h3>Шаг .step</h3><p>Короткое описание шага в одну-две строки.</p></div>
+    <div class="step s6"><div class="top"><span class="num">06</span></div><h3>Финальный шаг</h3><p>Лаймом выделяется только последний, главный шаг.</p></div>
+    <a href="#cards" class="cta-tile"><span class="mono">Призыв .cta-tile</span><p>Лаймовая плитка в конце сетки.</p><span class="ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+  </div>
+  <div class="ds-card ds-scroll" style="margin-top:16px">
+    <table class="ds-table">
+      <tr><th>Компонент</th><th>Класс</th><th>Фото</th><th>Ховер</th></tr>
+      <tr><td>Конструкция каталога</td><td><code>.tile</code></td><td>1:1, рендер на <code>--render</code></td><td>Затемнение + «Перейти» по центру</td></tr>
+      <tr><td>Кейс / проект</td><td><code>.proj</code></td><td>Широкое фото, 480–540 px высотой</td><td>Приближение фото, кружок → лайм</td></tr>
+      <tr><td>Направление (аккордеон)</td><td><code>.acc-p</code></td><td>Фон только в раскрытом виде</td><td>Свёрнутая — сплошной цвет</td></tr>
+      <tr><td>Шаг процесса</td><td><code>.step</code></td><td>—</td><td>Подъём</td></tr>
+      <tr><td>Товар аренды</td><td><code>.prod</code></td><td>1:1 на <code>--render</code></td><td>Подъём, кнопка «+»</td></tr>
+      <tr><td>Отзыв</td><td><code>.rev-card</code></td><td>Аватар-инициал</td><td>—</td></tr>
+      <tr><td>Логотип партнёра</td><td><code>.slot</code></td><td>Логотип до 88 px высотой</td><td>Увеличение 4%</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ СЕКЦИИ ============ -->
+<section class="ds-sec" id="sections">
+  <h2 class="h2">Секции</h2>
+  <p class="ds-intro">Страница собирается из готовых секций. Каждая секция — <code>&lt;section class="wrap sec"&gt;</code> с заголовком <code>.sec-head</code>: слева надзаголовок + H2, справа пояснение или кнопка.</p>
+  <div class="ds-card ds-scroll">
+    <table class="ds-table">
+      <tr><th>Секция</th><th>Классы</th><th>Когда использовать</th></tr>
+      <tr><td>Баннер главной</td><td><code>.hero-media .hero-top .hero-tabs</code></td><td>Только главная</td></tr>
+      <tr><td>Заголовок внутренней страницы</td><td><code>.crumbs .page-head .page-title</code></td><td>Первый экран любой внутренней страницы</td></tr>
+      <tr><td>Заголовок секции</td><td><code>.sec-head .eyebrow .h2 .sec-head-r</code></td><td>Перед каждым блоком контента</td></tr>
+      <tr><td>Шалфейная полоса</td><td><code>.band-sage</code></td><td>Чтобы отделить блок; не две подряд</td></tr>
+      <tr><td>Белая панель</td><td><code>.paper</code></td><td>Блок «текст + интерактив/фото» в одной карточке</td></tr>
+      <tr><td>Лаймовая CTA-панель</td><td><code>.cta-band</code> + <code>.cta-sketch</code></td><td>Финальный призыв страницы, одна на страницу</td></tr>
+      <tr><td>Форма заявки</td><td><code>.cta .cta-l .cta-f</code></td><td>Главная и контакты; на других — ссылка на неё</td></tr>
+      <tr><td>FAQ</td><td><code>.faq details.qa</code></td><td>Все вопросы закрыты по умолчанию</td></tr>
+    </table>
+  </div>
+  <h3 class="ds-h3">Пример: лаймовая CTA-панель</h3>
+  <div class="cta-band"><svg class="cta-sketch" viewBox="0 0 700 600" fill="none" stroke="#141812" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M363.9 245.9 L210.5 334.5 M403.7 268.9 L250.3 357.5 M443.5 291.9 L290.2 380.5 M483.4 314.9 L330.0 403.5 M523.2 337.9 L369.8 426.5 M296.1 245.9 L529.2 380.5 M256.3 268.9 L489.3 403.5 M216.5 291.9 L449.5 426.5" stroke-width=".7" stroke-dasharray="3 5"/>
+        <path d="M156.7 308.9 L423.6 463.0 M583.0 354.9 L395.7 463.0 M316.1 78.9 L583.0 233.0 M330.0 241.1 L330.0 70.9 M569.0 379.1 L569.0 208.9 M170.7 317.0 L132.8 338.8 M409.7 455.0 L371.8 476.8 M569.0 363.0 L606.9 384.9 M409.7 455.0 L447.5 476.8 M330.0 225.0 L292.2 203.2 M330.0 87.0 L292.2 65.2" stroke-width=".7"/>
+        <path d="M138.8 335.4 L377.8 473.4 M600.9 381.4 L441.5 473.4 M298.1 206.6 L298.1 68.6" stroke-width="1"/>
+        <path d="M132.8 341.4 L144.8 329.4 M371.8 479.4 L383.8 467.4 M594.9 387.4 L606.9 375.4 M435.5 479.4 L447.5 467.4 M292.1 212.6 L304.1 200.6 M292.1 74.6 L304.1 62.6" stroke-width="1.6"/>
+        <path d="M308.1 189.4 L244.4 226.1 M308.1 189.4 L320.0 196.2 M308.1 168.7 L244.4 205.4 M308.1 168.7 L320.0 175.6 M308.1 147.9 L244.4 184.7 M308.1 147.9 L320.0 154.8 M529.2 259.5 L528.9 255.4 L528.1 251.1 L526.8 246.6 L525.0 242.2 L522.8 237.9 L520.2 233.8 L517.2 230.1 L514.0 226.7 L510.7 223.8 L507.3 221.6 L503.8 219.9 L500.5 218.9 L497.3 218.6 L494.4 218.9 L491.8 220.0 L489.5 221.7 L487.8 224.1 L486.4 227.0 L485.6 230.4 L485.4 234.2 L485.6 238.3 L486.4 242.6 L487.8 247.1 L489.5 251.5 L491.8 255.8 L494.4 259.9 L497.3 263.6 L500.5 267.0 L503.8 269.9 L507.3 272.1 L510.7 273.8 L514.0 274.8 L517.2 275.1 L520.2 274.8 L522.8 273.7 L525.0 272.0 L526.8 269.6 L528.1 266.7 L528.9 263.3 L529.2 259.5 M520.0 254.2 L519.9 251.8 L519.4 249.3 L518.6 246.7 L517.6 244.2 L516.3 241.6 L514.8 239.3 L513.1 237.1 L511.2 235.1 L509.3 233.5 L507.3 232.1 L505.3 231.2 L503.3 230.6 L501.5 230.4 L499.8 230.6 L498.3 231.2 L497.0 232.2 L495.9 233.6 L495.2 235.3 L494.7 237.3 L494.5 239.5 L494.7 241.9 L495.2 244.4 L495.9 247.0 L497.0 249.5 L498.3 252.1 L499.8 254.4 L501.5 256.6 L503.3 258.6 L505.3 260.2 L507.3 261.6 L509.3 262.5 L511.2 263.1 L513.1 263.3 L514.8 263.1 L516.3 262.5 L517.6 261.5 L518.6 260.1 L519.4 258.4 L519.9 256.4 L520.0 254.2 M293.7 350.4 L293.7 305.3 M301.3 354.7 L301.3 309.6 M308.9 359.1 L308.9 314.0 M316.5 363.5 L316.5 318.4 M324.0 367.8 L324.0 322.8 M331.6 372.2 L331.6 327.1 M339.2 376.6 L339.2 331.5 M346.7 380.9 L346.7 335.9" stroke-width=".9"/>
+        <path d="M330.0 225.0 L569.0 363.0 M569.0 363.0 L409.7 455.0 M409.7 455.0 L170.7 317.0 M170.7 317.0 L330.0 225.0 M330.0 219.5 L569.0 357.5 M569.0 357.5 L409.7 449.5 M409.7 449.5 L170.7 311.5 M170.7 311.5 L330.0 219.5 M330.0 225.0 L330.0 219.5 M569.0 363.0 L569.0 357.5 M409.7 455.0 L409.7 449.5 M170.7 317.0 L170.7 311.5 M330.0 219.5 L569.0 357.5 M569.0 357.5 L563.0 360.9 M563.0 360.9 L324.0 222.9 M324.0 222.9 L330.0 219.5 M330.0 87.0 L569.0 225.0 M569.0 225.0 L563.0 228.4 M563.0 228.4 L324.0 90.4 M324.0 90.4 L330.0 87.0 M330.0 219.5 L330.0 87.0 M569.0 357.5 L569.0 225.0 M563.0 360.9 L563.0 228.4 M324.0 222.9 L324.0 90.4 M330.0 219.5 L336.0 222.9 M336.0 222.9 L216.5 291.9 M216.5 291.9 L210.5 288.5 M210.5 288.5 L330.0 219.5 M330.0 87.0 L336.0 90.4 M336.0 90.4 L216.5 159.4 M216.5 159.4 L210.5 156.0 M210.5 156.0 L330.0 87.0 M330.0 219.5 L330.0 87.0 M336.0 222.9 L336.0 90.4 M216.5 291.9 L216.5 159.4 M210.5 288.5 L210.5 156.0 M387.8 129.5 L499.3 193.9 M499.3 193.9 L491.3 198.5 M491.3 198.5 L379.8 134.2 M379.8 134.2 L387.8 129.5 M387.8 102.0 L499.3 166.3 M499.3 166.3 L491.3 171.0 M491.3 171.0 L379.8 106.6 M379.8 106.6 L387.8 102.0 M387.8 129.5 L387.8 102.0 M499.3 193.9 L499.3 166.3 M491.3 198.5 L491.3 171.0 M379.8 134.2 L379.8 106.6 M194.6 313.8 L196.5 314.9 M196.5 314.9 L192.6 317.2 M192.6 317.2 L190.6 316.1 M190.6 316.1 L194.6 313.8 M194.6 181.3 L196.5 182.4 M196.5 182.4 L192.6 184.8 M192.6 184.8 L190.6 183.6 M190.6 183.6 L194.6 181.3 M194.6 313.8 L194.6 181.3 M196.5 314.9 L196.5 182.4 M192.6 317.2 L192.6 184.8 M190.6 316.1 L190.6 183.6 M198.5 316.1 L200.5 317.2 M200.5 317.2 L196.5 319.5 M196.5 319.5 L194.6 318.4 M194.6 318.4 L198.5 316.1 M198.5 183.6 L200.5 184.8 M200.5 184.8 L196.5 187.0 M196.5 187.0 L194.6 185.9 M194.6 185.9 L198.5 183.6 M198.5 316.1 L198.5 183.6 M200.5 317.2 L200.5 184.8 M196.5 319.5 L196.5 187.0 M194.6 318.4 L194.6 185.9 M202.5 318.4 L204.5 319.5 M204.5 319.5 L200.5 321.8 M200.5 321.8 L198.5 320.7 M198.5 320.7 L202.5 318.4 M202.5 185.9 L204.5 187.0 M204.5 187.0 L200.5 189.3 M200.5 189.3 L198.5 188.2 M198.5 188.2 L202.5 185.9 M202.5 318.4 L202.5 185.9 M204.5 319.5 L204.5 187.0 M200.5 321.8 L200.5 189.3 M198.5 320.7 L198.5 188.2 M206.5 320.7 L208.5 321.8 M208.5 321.8 L204.5 324.1 M204.5 324.1 L202.5 323.0 M202.5 323.0 L206.5 320.7 M206.5 188.2 L208.5 189.3 M208.5 189.3 L204.5 191.6 M204.5 191.6 L202.5 190.5 M202.5 190.5 L206.5 188.2 M206.5 320.7 L206.5 188.2 M208.5 321.8 L208.5 189.3 M204.5 324.1 L204.5 191.6 M202.5 323.0 L202.5 190.5 M210.5 323.0 L212.5 324.1 M212.5 324.1 L208.5 326.4 M208.5 326.4 L206.5 325.3 M206.5 325.3 L210.5 323.0 M210.5 190.5 L212.5 191.6 M212.5 191.6 L208.5 193.9 M208.5 193.9 L206.5 192.8 M206.5 192.8 L210.5 190.5 M210.5 323.0 L210.5 190.5 M212.5 324.1 L212.5 191.6 M208.5 326.4 L208.5 193.9 M206.5 325.3 L206.5 192.8 M387.8 425.3 L389.8 426.5 M389.8 426.5 L385.8 428.8 M385.8 428.8 L383.8 427.6 M383.8 427.6 L387.8 425.3 M387.8 292.8 L389.8 294.0 M389.8 294.0 L385.8 296.3 M385.8 296.3 L383.8 295.1 M383.8 295.1 L387.8 292.8 M387.8 425.3 L387.8 292.8 M389.8 426.5 L389.8 294.0 M385.8 428.8 L385.8 296.3 M383.8 427.6 L383.8 295.1 M391.7 427.6 L393.7 428.8 M393.7 428.8 L389.8 431.1 M389.8 431.1 L387.8 429.9 M387.8 429.9 L391.7 427.6 M391.7 295.1 L393.7 296.3 M393.7 296.3 L389.8 298.6 M389.8 298.6 L387.8 297.4 M387.8 297.4 L391.7 295.1 M391.7 427.6 L391.7 295.1 M393.7 428.8 L393.7 296.3 M389.8 431.1 L389.8 298.6 M387.8 429.9 L387.8 297.4 M395.7 429.9 L397.7 431.1 M397.7 431.1 L393.7 433.4 M393.7 433.4 L391.7 432.2 M391.7 432.2 L395.7 429.9 M395.7 297.4 L397.7 298.6 M397.7 298.6 L393.7 300.9 M393.7 300.9 L391.7 299.8 M391.7 299.8 L395.7 297.4 M395.7 429.9 L395.7 297.4 M397.7 431.1 L397.7 298.6 M393.7 433.4 L393.7 300.9 M391.7 432.2 L391.7 299.8 M399.7 432.2 L401.7 433.4 M401.7 433.4 L397.7 435.7 M397.7 435.7 L395.7 434.5 M395.7 434.5 L399.7 432.2 M399.7 299.8 L401.7 300.9 M401.7 300.9 L397.7 303.2 M397.7 303.2 L395.7 302.0 M395.7 302.0 L399.7 299.8 M399.7 432.2 L399.7 299.8 M401.7 433.4 L401.7 300.9 M397.7 435.7 L397.7 303.2 M395.7 434.5 L395.7 302.0 M403.7 434.5 L405.7 435.7 M405.7 435.7 L401.7 438.0 M401.7 438.0 L399.7 436.8 M399.7 436.8 L403.7 434.5 M403.7 302.0 L405.7 303.2 M405.7 303.2 L401.7 305.5 M401.7 305.5 L399.7 304.4 M399.7 304.4 L403.7 302.0 M403.7 434.5 L403.7 302.0 M405.7 435.7 L405.7 303.2 M401.7 438.0 L401.7 305.5 M399.7 436.8 L399.7 304.4 M194.6 179.0 L411.7 304.3 M411.7 304.3 L403.7 308.9 M403.7 308.9 L186.6 183.6 M186.6 183.6 L194.6 179.0 M194.6 168.9 L411.7 294.2 M411.7 294.2 L403.7 298.8 M403.7 298.8 L186.6 173.5 M186.6 173.5 L194.6 168.9 M194.6 179.0 L194.6 168.9 M411.7 304.3 L411.7 294.2 M403.7 308.9 L403.7 298.8 M186.6 183.6 L186.6 173.5 M310.1 332.2 L377.8 371.3 M377.8 371.3 L353.9 385.1 M353.9 385.1 L286.2 346.0 M286.2 346.0 L310.1 332.2 M310.1 287.1 L377.8 326.2 M377.8 326.2 L353.9 340.0 M353.9 340.0 L286.2 300.9 M286.2 300.9 L310.1 287.1 M310.1 332.2 L310.1 287.1 M377.8 371.3 L377.8 326.2 M353.9 385.1 L353.9 340.0 M286.2 346.0 L286.2 300.9 M308.1 283.6 L383.8 327.3 M383.8 327.3 L355.9 343.4 M355.9 343.4 L280.2 299.7 M280.2 299.7 L308.1 283.6 M308.1 280.9 L383.8 324.6 M383.8 324.6 L355.9 340.7 M355.9 340.7 L280.2 297.0 M280.2 297.0 L308.1 280.9 M308.1 283.6 L308.1 280.9 M383.8 327.3 L383.8 324.6 M355.9 343.4 L355.9 340.7 M280.2 299.7 L280.2 297.0" stroke-width="1.4"/>
+        <path d="M242.4 340.0 L242.4 282.0 M233.4 290.0 L251.4 290.0 M242.4 282.0 m-6 -9 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 M242.4 315.0 L235.4 340.0 M242.4 315.0 L249.4 340.0" stroke-width="1.1"/>
+        <path d="M405.6 521.7 a16 16 0 1 0 32 0 a16 16 0 1 0 -32 0 M397.6 521.7 L445.6 521.7 M421.6 497.7 L421.6 545.7" stroke-width=".9"/>
+      </svg><h2 class="h2">Нужен стенд под ключ?</h2><p>Финальный призыв страницы: H2, одна строка пояснения, одна главная кнопка. Эскиз на фоне — прозрачность 16%.</p><div class="btns"><a href="#sections" class="btn btn-dark">Изготовление стендов<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></div></div>
+</section>
+
+<!-- ============ ФОРМЫ ============ -->
+<section class="ds-sec" id="forms">
+  <h2 class="h2">Формы</h2>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card">
+      <div class="fld"><label class="lbl" for="ds-a">Ваше имя *</label><input class="inp" id="ds-a" placeholder="Как к вам обращаться"></div>
+      <div class="fld" style="margin-top:16px"><span class="lbl">Тема обращения</span><div class="topics"><label class="topic"><input type="radio" name="ds-t" checked><span>Изготовление стенда</span></label><label class="topic"><input type="radio" name="ds-t"><span>Другое</span></label></div></div>
+      <label class="chk" style="margin-top:16px"><input type="checkbox"><span>Согласен с условиями <a href="#forms">политики конфиденциальности</a>. *</span></label>
+    </div>
+    <div class="ds-card"><ul class="ds-rules">
+      <li>Подпись над полем, всегда видимая; плейсхолдер — пример, а не подпись</li>
+      <li>Обязательные поля — звёздочка в подписи, атрибут <code>required</code></li>
+      <li>Поле: высота 58, фон <code>--bg</code>, фокус — белый фон и рамка <code>--ink</code></li>
+      <li>Выбор из 2–5 вариантов — чипы-радиокнопки, а не выпадающий список</li>
+      <li>Телефон и почта — отдельные поля с <code>type="tel"</code> и <code>type="email"</code></li>
+      <li>Кнопка отправки на всю ширину формы, <code>.btn-dark .btn-block</code></li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ НАВИГАЦИЯ ============ -->
+<section class="ds-sec" id="nav">
+  <h2 class="h2">Навигация</h2>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card"><span class="ds-label mono">Шапка</span><ul class="ds-rules">
+      <li>Одинаковая на всех страницах: логотип, меню в белой капсуле, язык, подборка, «Обсудить проект»</li>
+      <li>Текущий раздел подсвечивается шалфейным фоном пункта (<code>.is-current</code>)</li>
+      <li>«Каталог стендов» — выпадающая панель 4×3, открывается по наведению и клику</li>
+      <li>Язык — выпадающий список с кодом и самоназванием языка</li>
+      <li>≤1280 px — бургер, меню на весь экран с крестиком</li>
+    </ul></div>
+    <div class="ds-card ds-dark"><span class="ds-label mono" style="color:rgba(255,255,255,.55)">Подвал</span><ul class="ds-rules" style="color:rgba(255,255,255,.85)">
+      <li>Тёмный <code>--ink</code>, скругление сверху 36 px</li>
+      <li>Логотип слева сверху, 4 колонки: бренд, направления, конструкции, контакты</li>
+      <li>Нижняя строка: копирайт, переключатель языков, подпись</li>
+      <li>Ссылки ведут на реальные страницы, якоря — только на главной</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ АНИМАЦИЯ ============ -->
+<section class="ds-sec" id="motion">
+  <h2 class="h2">Анимация</h2>
+  <p class="ds-intro">Движение короткое и мягкое: одна кривая <code>--ease: cubic-bezier(.2,.8,.2,1)</code>. Анимируем только <code>transform</code>, <code>opacity</code>, цвет фона. При <code>prefers-reduced-motion</code> анимации отключаются.</p>
+  <div class="ds-card ds-scroll"><table class="ds-table">
+    <tr><th>Паттерн</th><th>Длительность</th><th>Где</th></tr>
+    <tr><td>Кнопка: scale 1.04 + стрелка −45°</td><td>.35–.45 s</td><td>все <code>.btn</code>, вкладки баннера</td></tr>
+    <tr><td>Карточка: подъём −5 px + тень</td><td>.4 s</td><td>каталог, шаги, аренда</td></tr>
+    <tr><td>Фото: приближение 1.04–1.07</td><td>.7–1.2 s</td><td>карточки с фото, баннер</td></tr>
+    <tr><td>Появление панели: opacity + translateY 6 px</td><td>.2–.3 s</td><td>выпадающие меню</td></tr>
+    <tr><td>Цвет фона</td><td>.2–.25 s</td><td>пункты меню, чипы</td></tr>
+  </table></div>
+</section>
+
+<!-- ============ ИЗОБРАЖЕНИЯ ============ -->
+<section class="ds-sec" id="images">
+  <h2 class="h2">Изображения</h2>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card"><span class="ds-label mono">Папки</span><pre class="ds-pre">img/
+├─ bg.png, bg_m.png      баннер главной (десктоп / ≤968)
+├─ category/             рендеры конструкций, NN-Название.png
+├─ block3/               фоны аккордеона направлений
+├─ block5/               eskiz.png, final.png
+├─ case/                 caseN.png — фото проектов
+├─ shop/                 товары аренды
+├─ partners/             logoN.png
+└─ p_about.png           капсула «О компании»</pre></div>
+    <div class="ds-card"><ul class="ds-rules">
+      <li>Пути относительные: <code>img/…</code> на AZ, <code>../img/…</code> в <code>/ru/</code>, <code>../../img/…</code> во вложенных страницах</li>
+      <li>Рендеры конструкций — квадрат, светло-серый фон <code>#DEDEDF</code></li>
+      <li>Фото проектов — от 1600 px по длинной стороне, JPG/WebP до 400 КБ</li>
+      <li>Под каждым фото <code>width</code>/<code>height</code> и <code>loading="lazy"</code> (кроме первого экрана)</li>
+      <li><code>alt</code> описывает содержание; декоративные — <code>alt=""</code></li>
+      <li>Никакого текста внутри картинок — он не переводится</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ ТЕКСТЫ ============ -->
+<section class="ds-sec" id="content">
+  <h2 class="h2">Тексты</h2>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card"><span class="ds-label mono">Тон</span><ul class="ds-rules">
+      <li>Уверенно и по делу, от лица команды: «делаем», «подготовим»</li>
+      <li>Обращение на «вы» со строчной буквы</li>
+      <li>Короткие фразы, одно утверждение — одно предложение</li>
+      <li>Кнопки — глагол + объект: «Рассчитать стоимость», «Смотреть проекты»</li>
+      <li>Без выдуманных цифр, рейтингов и отзывов на живом сайте</li>
+    </ul></div>
+    <div class="ds-card"><span class="ds-label mono">Набор</span><ul class="ds-rules">
+      <li>Тире — длинное «—» с пробелами, дефис только в словах</li>
+      <li>Кавычки-ёлочки «», буква ё обязательна</li>
+      <li>Размеры: <code>Ø 80 × 74 см</code>, <code>160 × 80 × 75 см</code> (знак ×, неразрывные пробелы)</li>
+      <li>Телефон: <code>+994 50 316 16 61</code></li>
+      <li>Нумерация шагов и карточек — двузначная: 01, 02…</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ ЯЗЫКИ И URL ============ -->
+<section class="ds-sec" id="i18n">
+  <h2 class="h2">Языки и URL</h2>
+  <p class="ds-intro">Три языка — отдельные статичные HTML-страницы, без подмены текста скриптом. Сначала страница делается на русском, после согласования — AZ и EN.</p>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card"><pre class="ds-pre">/                  AZ (по умолчанию)
+/ru/               RU
+/en/               EN
+
+/ru/catalog/               каталог стендов
+/ru/stands/                изготовление стендов
+/ru/stands/roll-up/        страница конструкции
+  pop-up, banner, fold-up, press-wall, fabric,
+  custom, reception, print, promo, signs, brochure
+/ru/staff/                 модели и персонал
+/ru/rental/                аренда оборудования
+/ru/projects/              проекты
+/ru/about/                 о компании
+/ru/contacts/              контакты</pre></div>
+    <div class="ds-card"><ul class="ds-rules">
+      <li>У каждой страницы: <code>lang</code>, свой <code>title</code> и <code>description</code>, <code>canonical</code>, <code>hreflang</code> на все языковые версии</li>
+      <li>Вёрстка выдерживает текст на 30% длиннее русского: без фиксированной ширины у кнопок и пунктов меню</li>
+      <li>Переводятся также <code>alt</code>, <code>aria-label</code>, плейсхолдеры и строки в скрипте</li>
+      <li>Самоназвания языков: Azərbaycanca, Русский, English</li>
+      <li>Ссылки в меню — на реальные страницы, якоря <code>#…</code> — только внутри страницы</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ============ ПРАВИЛА КОДА ============ -->
+<section class="ds-sec" id="code">
+  <h2 class="h2">Правила кода</h2>
+  <div class="ds-grid ds-g2">
+    <div class="ds-card"><ul class="ds-rules">
+      <li>Каждая страница — один HTML-файл: CSS в <code>&lt;style&gt;</code>, JS перед <code>&lt;/body&gt;</code></li>
+      <li>CSS состоит из двух частей: <b>ядро</b> (одинаковое на всех страницах, берётся с главной) и блок <b>«СТРАНИЦА: …»</b> в конце</li>
+      <li>Ядро на отдельной странице не правим. Изменение ядра вносится сразу во все страницы</li>
+      <li>Компонент из блока страницы, понадобившийся на второй странице, переносится в ядро и в этот гайдлайн</li>
+      <li>Цвета, скругления, отступы секций — только через переменные</li>
+      <li>Поведение подключаем через <code>data-*</code> атрибуты, а не через классы оформления</li>
+    </ul></div>
+    <div class="ds-card"><span class="ds-label mono">Слои z-index</span><table class="ds-table">
+      <tr><td>Контент поверх фото</td><td>1–2</td></tr><tr><td>Кнопка «Наверх»</td><td>60</td></tr><tr><td>Выпадающие меню</td><td>70</td></tr><tr><td>Полноэкранное меню</td><td>90</td></tr><tr><td>Ссылка «К содержимому»</td><td>100</td></tr>
+    </table></div>
+  </div>
+  <h3 class="ds-h3">Каркас новой страницы</h3>
+<pre class="ds-pre">&lt;!-- шапка, спрайт иконок, мобильное меню — без изменений из ядра --&gt;
+&lt;main id="main"&gt;
+  &lt;section class="wrap"&gt;
+    &lt;nav aria-label="Хлебные крошки"&gt;&lt;ol class="crumbs mono"&gt;…&lt;/ol&gt;&lt;/nav&gt;
+    &lt;div class="page-head"&gt;
+      &lt;div&gt;&lt;p class="eyebrow mono"&gt;Раздел&lt;/p&gt;&lt;h1 class="page-title"&gt;Название&lt;/h1&gt;&lt;/div&gt;
+      &lt;div class="page-head-r"&gt;&lt;p class="lead"&gt;Пояснение&lt;/p&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section class="wrap sec"&gt;
+    &lt;div class="sec-head"&gt;…&lt;/div&gt;
+    &lt;!-- контент из компонентов гайдлайна --&gt;
+  &lt;/section&gt;
+
+  &lt;section class="wrap sec"&gt;&lt;div class="cta-band"&gt;…&lt;/div&gt;&lt;/section&gt;
+&lt;/main&gt;
+&lt;!-- подвал, кнопка «Наверх», скрипт ядра --&gt;</pre>
+</section>
+
+<!-- ============ ЧЕК-ЛИСТ ============ -->
+<section class="ds-sec" id="checklist">
+  <h2 class="h2">Чек-лист новой страницы</h2>
+  <div class="ds-card"><ul class="ds-check">
+    <li><span>Шапка, подвал, спрайт и скрипт — из ядра без изменений</span></li>
+    <li><span>Текущий раздел подсвечен в меню</span></li>
+    <li><span>Хлебные крошки и <code>.page-head</code> на первом экране</span></li>
+    <li><span>Один H1, у каждой секции надзаголовок и H2</span></li>
+    <li><span>Одна главная кнопка на экран, одна лаймовая панель на страницу</span></li>
+    <li><span>Только компоненты из гайдлайна; новые — сначала сюда</span></li>
+    <li><span>Все пути к картинкам относительные и проверены</span></li>
+    <li><span><code>alt</code>, <code>aria-label</code>, подписи полей заполнены</span></li>
+    <li><span><code>title</code>, <code>description</code>, <code>canonical</code>, <code>hreflang</code></span></li>
+    <li><span>Нет горизонтального скролла на 320–1920</span></li>
+    <li><span>Нет ошибок в консоли</span></li>
+    <li><span>Ссылки ведут на реальные страницы или помечены как будущие</span></li>
+  </ul></div>
+</section>
+
+</main>
+<footer class="wrap" style="padding:80px 0 40px"><p class="mono muted">ADVEX · Дизайн-система v1.0 · исходник — главная страница сайта</p></footer>
+
+</body>
+</html>
