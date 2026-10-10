@@ -1485,7 +1485,9 @@ html.menu-open { overflow: hidden; }
 }
 
 /* Полоса прогресса */
-.rev-bar { position: relative; height: 4px; border-radius: 2px; background: #CDD2C2; overflow: hidden; }
+.rev-bottom { display: flex; align-items: center; gap: 16px; }
+.rev-arrow-m { display: none; }
+.rev-bar { flex: 1; position: relative; height: 4px; border-radius: 2px; background: #CDD2C2; overflow: hidden; }
 .rev-bar span {
   position: absolute;
   top: 0;
@@ -1735,6 +1737,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   .rent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rev-grid { grid-template-columns: 1fr; }
+  .rev-nav { display: none; }
+  .rev-arrow-m { display: grid; flex: none; }
   .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .note { text-align: left; }
 }

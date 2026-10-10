@@ -1490,7 +1490,9 @@ html.menu-open { overflow: hidden; }
 }
 
 /* Полоса прогресса */
-.rev-bar { position: relative; height: 4px; border-radius: 2px; background: #CDD2C2; overflow: hidden; }
+.rev-bottom { display: flex; align-items: center; gap: 16px; }
+.rev-arrow-m { display: none; }
+.rev-bar { flex: 1; position: relative; height: 4px; border-radius: 2px; background: #CDD2C2; overflow: hidden; }
 .rev-bar span {
   position: absolute;
   top: 0;
@@ -1740,6 +1742,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   .rent-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .logos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rev-grid { grid-template-columns: 1fr; }
+  .rev-nav { display: none; }
+  .rev-arrow-m { display: grid; flex: none; }
   .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .note { text-align: left; }
 }
@@ -2231,8 +2235,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   /* ---------- Слайдер отзывов ---------- */
   var track = document.querySelector('[data-rev-track]');
   if (track) {
-    var prev = document.querySelector('[data-rev-prev]');
-    var next = document.querySelector('[data-rev-next]');
+    var prevs = document.querySelectorAll('[data-rev-prev]');
+    var nexts = document.querySelectorAll('[data-rev-next]');
     var bar = document.querySelector('[data-rev-bar]');
     var step = function () {
       var card = track.querySelector('.rev-card');
@@ -2241,16 +2245,16 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     };
     var sync = function () {
       var max = track.scrollWidth - track.clientWidth;
-      if (prev) prev.disabled = track.scrollLeft <= 2;
-      if (next) next.disabled = track.scrollLeft >= max - 2;
+      prevs.forEach(function (b) { b.disabled = track.scrollLeft <= 2; });
+      nexts.forEach(function (b) { b.disabled = track.scrollLeft >= max - 2; });
       if (bar) {
         var w = track.clientWidth / track.scrollWidth;
         bar.style.width = (w * 100) + '%';
         bar.style.left = (max > 0 ? (track.scrollLeft / max) * (1 - w) * 100 : 0) + '%';
       }
     };
-    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-    if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    prevs.forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); }); });
+    nexts.forEach(function (b) { b.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); }); });
     track.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync);
     sync();
