@@ -1808,6 +1808,34 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   .btn { padding-left: 20px; }
 }
 
+/* =========================================================
+   Внутренние страницы (ядро): текущий раздел, крошки, заголовок страницы, CTA-панель
+   ========================================================= */
+.nav a.is-current, .nav-dd-btn.is-current { background: var(--sage); }
+.crumbs { margin: 0; padding: 12px 0 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; color: var(--mute); }
+.crumbs li { display: inline-flex; align-items: center; gap: 8px; }
+.crumbs li + li::before { content: "/"; color: #A3A99B; }
+.crumbs a { transition: color .2s; }
+.crumbs a:hover { color: var(--ink); }
+.crumbs [aria-current="page"] { color: var(--ink); }
+.page-head { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; align-items: end; padding-top: 56px; padding-bottom: 56px; }
+.page-title { font-size: clamp(42px, 6vw, 88px); line-height: .98; letter-spacing: -.045em; font-weight: 500; }
+.page-head-r { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; padding-bottom: 8px; }
+.page-head-r .lead { max-width: 440px; }
+.page-count { color: var(--mute); }
+.cta-band { position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: 22px; min-height: 360px; padding: 56px; border-radius: var(--r-xl); background: var(--acc); }
+.cta-band > :not(.cta-sketch) { position: relative; z-index: 1; }
+.cta-band p { font-size: 20px; line-height: 1.4; max-width: 520px; }
+.cta-band .btns { margin-top: 8px; }
+.cta-band .cta-sketch { width: 58%; max-width: 620px; right: -40px; bottom: -60px; }
+@media (max-width: 1100px) {
+  .page-head { grid-template-columns: 1fr; gap: 24px; padding-top: 40px; padding-bottom: 40px; }
+  .cta-band .cta-sketch { width: 80%; opacity: .1; }
+}
+@media (max-width: 720px) {
+  .cta-band { padding: 28px 22px; min-height: 0; border-radius: var(--r-md); }
+}
+
 /* Кнопка «Наверх» */
 .to-top {
   position: fixed;
@@ -1863,6 +1891,12 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-zoom" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M11 8v6M8 11h6"/></g></symbol>
   <symbol id="i-swap" viewBox="0 0 24 24"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="c-area" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="1.5"/><path d="M3.5 11h7v9.5M10.5 3.5V8M14 11h6.5"/></g></symbol>
+  <symbol id="c-cube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l8.2 4.6v9.2L12 21.2l-8.2-4.6V7.4z"/><path d="M3.8 7.4L12 12l8.2-4.6M12 12v9.2"/></g></symbol>
+  <symbol id="c-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 4.8-9 4.8-9-4.8z"/><path d="M3 12.2l9 4.8 9-4.8"/><path d="M3 16.4l9 4.8 9-4.8"/></g></symbol>
+  <symbol id="c-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 17.5h5M10.5 21h3"/><path d="M12 2.5a6.5 6.5 0 0 0-3.9 11.7c.6.5 1.1 1.3 1.1 2.1v.2h5.6v-.2c0-.8.5-1.6 1.1-2.1A6.5 6.5 0 0 0 12 2.5z"/><path d="M12 6.5a2.5 2.5 0 0 0-2.5 2.5"/></g></symbol>
+  <symbol id="c-chair" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V5.5A2.5 2.5 0 0 1 9.5 3h5A2.5 2.5 0 0 1 17 5.5V11"/><rect x="4.5" y="11" width="15" height="4" rx="1.5"/><path d="M7 15v6M17 15v6"/></g></symbol>
+  <symbol id="c-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12.5" r="8.5"/><path d="M12 8v4.5l3 2M9.5 2.5h5"/></g></symbol>
   <symbol id="i-slash" viewBox="0 0 22 30"><polygon class="slash" points="9,1 21,1 13,29 1,29"/></symbol>
 </svg>
 
@@ -1893,7 +1927,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <a href="catalog.html" class="cat-all">Весь каталог<span class="ic"><svg width="14" height="14" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
-    <a href="#">Изготовление стендов</a>
+    <a href="stands.html">Изготовление стендов</a>
     <a href="#">Модели</a>
     <a href="#rent">Аренда</a>
     <a href="#projects">Проекты</a>
@@ -1943,7 +1977,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <a href="catalog.html" class="mnav-cat-all">Весь каталог →</a>
       </div>
     </details>
-    <a href="#">Изготовление стендов</a>
+    <a href="stands.html">Изготовление стендов</a>
     <a href="#">Модели</a>
     <a href="#rent">Аренда</a>
     <a href="#projects">Проекты</a>
@@ -1981,7 +2015,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       </div>
     </div>
     <ul class="hero-tabs">
-      <li><a href="#" class="htab is-first"><span class="t"><span class="mono">01</span><b>Изготовление стендов</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="stands.html" class="htab is-first"><span class="t"><span class="mono">01</span><b>Изготовление стендов</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
       <li><a href="#" class="htab"><span class="t"><span class="mono">02</span><b>Модели и персонал</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
       <li><a href="#rent" class="htab"><span class="t"><span class="mono">03</span><b>Аренда оборудования</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
     </ul>
@@ -2043,7 +2077,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <div class="acc-open">
             <h3>Изготовление стендов</h3>
             <p>Пространства, созданные вокруг вашего бренда.</p>
-            <a href="#" class="btn btn-light btn-sm">Подробнее<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+            <a href="stands.html" class="btn btn-light btn-sm">Подробнее<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
           </div>
         </div>
         <button type="button" class="acc-toggle" aria-controls="dir-1" aria-expanded="true"><span class="mono">01</span><span class="vt">Изготовление стендов</span><span class="plus"><svg width="18" height="18" aria-hidden="true"><use href="#i-plus"/></svg></span></button>
@@ -2427,7 +2461,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <span class="mono">Направления</span>
           <ul>
             <li><a href="catalog.html">Каталог стендов</a></li>
-            <li><a href="#">Изготовление стендов</a></li>
+            <li><a href="stands.html">Изготовление стендов</a></li>
             <li><a href="#">Модели и персонал</a></li>
             <li><a href="#rent">Аренда оборудования</a></li>
             <li><a href="#projects">Наши проекты</a></li>
