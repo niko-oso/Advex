@@ -1979,6 +1979,30 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
   .mat-list li { grid-template-columns: 76px minmax(0, 1fr); gap: 16px; }
   .mat-img { width: 76px; }
 }
+
+/* Форма расчёта: компоненты и токены дизайн-системы */
+.quote-modal { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 24px; border: 0; background: transparent; color: var(--ink); overflow-y: auto; }
+.quote-modal[open] { display: flex; }
+.quote-modal::backdrop { background: rgba(14, 17, 12, .6); }
+.quote-box { position: relative; width: 100%; max-width: 960px; flex-shrink: 0; margin: auto; padding: 40px 36px 32px; border-radius: var(--r-xl); background: var(--paper); }
+.quote-close { position: absolute; top: 16px; right: 16px; background: var(--bg); }
+.quote-box > .eyebrow { padding-right: 48px; margin-bottom: 20px; }
+.quote-box > .h2 { font-size: 46px; }
+.quote-form { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+.quote-file { height: auto; min-height: 58px; padding: 8px; }
+.quote-file::file-selector-button { margin-right: 14px; padding: 12px 18px; border: 0; border-radius: var(--r-sm); background: var(--sage); color: var(--ink); font: inherit; cursor: pointer; }
+.quote-file::file-selector-button:hover { background: var(--acc); }
+.quote-hint { font-size: 14px; line-height: 1.45; }
+@media (max-width: 720px) { .quote-modal { padding: 12px; } .quote-box { padding: 32px 20px 24px; border-radius: var(--r-md); } .quote-form .grid2 { grid-template-columns: 1fr; } }
+
+/* Первый экран изготовления стендов — баннер по образцу главной */
+.stands-hero { margin-top: 32px; }
+.stands-hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(14, 17, 12, .72), rgba(14, 17, 12, .28)); pointer-events: none; }
+.stands-hero::after { display: none; }
+.stands-hero .hero-top { z-index: 2; }
+
+@media (max-width: 768px) { .stands-hero .hero-bg { object-position: 60% center; } }
+@media (max-width: 560px) { .stands-hero .hero-bg { object-position: 60% top; } }
 </style>
 </head>
 <body>
@@ -2110,21 +2134,25 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
       <li><span aria-current="page">Stendlərin hazırlanması</span></li>
     </ol>
   </nav>
-  <div class="page-head">
-    <div>
-      <h1 class="page-title" id="page-title">Açar təhvil stendlər.<br>Sizin ideyanız — <span class="mark">real miqyasda.</span></h1>
-    </div>
-    <div class="page-head-r">
-      <p class="lead">Açar təhvil sərgi stendləri — ilk ideyadan müştərilərinizlə görüşə qədər.</p>
-      <div class="btns">
-        <a href="#contact" class="btn btn-dark">Qiyməti hesablayın<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
-        <a href="projects.html" class="btn btn-paper">Layihələrə baxın<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+  <div class="hero-media stands-hero">
+    <picture>
+      <source media="(max-width: 560px)" srcset="img/stands-hero-mobile.png">
+      <source media="(max-width: 768px)" srcset="img/stands-hero-tablet.png">
+      <img class="hero-bg" src="img/stands-hero-sensemi-v2.png" alt="Taxta reykalı Sensemi Azerbaijan stendi — ADVEX layihəsi" fetchpriority="high">
+    </picture>
+    <div class="hero-top">
+      <div>
+        <p class="eyebrow mono">ADVEX layihəsi · Sensemi Azerbaijan</p>
+        <h1 class="h1" id="page-title">Açar təhvil stendlər.<br>Sizin ideyanız — <span class="mark">real miqyasda.</span></h1>
+      </div>
+      <div class="hero-side">
+        <p class="lead">Açar təhvil sərgi stendləri — ilk ideyadan müştərilərinizlə görüşə qədər.</p>
+        <div class="btns">
+        <a href="#quote-modal" class="btn btn-white" data-quote-open aria-haspopup="dialog" aria-controls="quote-modal">Qiyməti hesablayın<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a href="projects.html" class="btn btn-ghost-light">Layihələrə baxın<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      </div>
       </div>
     </div>
-  </div>
-  <div class="page-photo">
-    <img src="img/case/case4.png" alt="Taxta reykalı Sensemi Azerbaijan stendi — ADVEX layihəsi" fetchpriority="high">
-    <span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi · Sensemi Azerbaijan</span>
     <ul class="hero-tabs">
       <li><a href="#svc-title" class="htab is-first"><span class="t"><span class="mono">01</span><b>Dizayn-layihə</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
       <li><a href="#mat-title" class="htab"><span class="t"><span class="mono">02</span><b>İstehsal</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
@@ -2257,7 +2285,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
       <p class="eyebrow mono" style="margin-bottom:-6px;color:rgba(255,255,255,.6)">Hesablama</p>
       <h2 class="h2" id="cost-title">Qiymət nədən asılıdır.</h2>
       <p>Hər layihə fərdidir, ona görə qiyməti tapşırığınıza görə hesablayırıq.</p>
-      <a href="#contact" class="btn btn-white">Qiyməti hesablayın<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="#quote-modal" class="btn btn-white" data-quote-open aria-haspopup="dialog" aria-controls="quote-modal">Qiyməti hesablayın<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
     </div>
     <ul class="cost-grid">
       <li><svg class="cost-ic" width="36" height="36" aria-hidden="true"><use href="#c-area"/></svg><h3>Sahə və planlaşdırma</h3></li><li><svg class="cost-ic" width="36" height="36" aria-hidden="true"><use href="#c-cube"/></svg><h3>Konstruksiyanın mürəkkəbliyi</h3></li><li><svg class="cost-ic" width="36" height="36" aria-hidden="true"><use href="#c-layers"/></svg><h3>Materiallar və üzlük</h3></li><li><svg class="cost-ic" width="36" height="36" aria-hidden="true"><use href="#c-bulb"/></svg><h3>İşıq və multimedia</h3></li><li><svg class="cost-ic" width="36" height="36" aria-hidden="true"><use href="#c-chair"/></svg><h3>Avadanlıq</h3></li><li><svg class="cost-ic" width="36" height="36" aria-hidden="true"><use href="#c-clock"/></svg><h3>Müddətlər və quraşdırma</h3></li>
@@ -2475,6 +2503,26 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
 </section>
 
 </main>
+
+<dialog class="quote-modal" id="quote-modal" aria-labelledby="quote-title">
+  <div class="quote-box">
+    <button type="button" class="icon-btn quote-close" data-quote-close aria-label="Bağla"><svg width="22" height="22" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <p class="eyebrow mono">İdeyanızı həyata keçirək</p>
+    <h2 class="h2" id="quote-title">Qiyməti hesablayın</h2>
+    <form class="quote-form" action="#" method="post" data-quote-form>
+      <div class="grid2"><div class="fld"><label class="lbl" for="q-name">Adınız *</label><input class="inp" id="q-name" name="name" type="text" autocomplete="name" required></div><div class="fld"><label class="lbl" for="q-company">Şirkət</label><input class="inp" id="q-company" name="company" type="text" autocomplete="organization"></div></div>
+      <div class="fld"><label class="lbl" for="q-contact">Telefon və ya e-poçt *</label><input class="inp" id="q-contact" name="contact" type="text" required></div>
+      <div class="grid2"><div class="fld"><label class="lbl" for="q-exhibition">Sərginin adı</label><input class="inp" id="q-exhibition" name="exhibition" type="text" ></div><div class="fld"><label class="lbl" for="q-area">Sahə, m²</label><input class="inp" id="q-area" name="area" type="number" min="0" step="any"></div></div>
+      <div class="grid2"><div class="fld"><label class="lbl" for="q-date">Tədbirin tarixi</label><input class="inp" id="q-date" name="event_date" type="date" ></div><div class="fld"><label class="lbl" for="q-structure">Konstruksiya növü</label><input class="inp" id="q-structure" name="structure" type="text" ></div></div>
+      <div class="fld"><label class="lbl" for="q-task">Layihəniz barədə danışın</label><textarea class="inp" id="q-task" name="message"></textarea></div>
+      <div class="fld"><label class="lbl" for="q-file">Texniki tapşırıq və ya plan</label><input class="inp quote-file" id="q-file" name="brief" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp" aria-describedby="q-file-hint"><p class="muted quote-hint" id="q-file-hint">Sənəd və ya şəkil · 10 MB-a qədər · fayl serverə yüklənmir</p></div>
+      <label class="chk"><input type="checkbox" name="consent" required><span>Məlumatların emalı ilə bağlı <a href="#">məxfilik siyasətində</a> təsvir olunan şərtlərlə razıyam. *</span></label>
+      <button type="submit" class="btn btn-dark btn-block">Sorğu göndər<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <div class="sent" role="status" tabindex="-1" data-quote-status hidden>Forma vasitəsilə göndərmə hazırda mümkün deyil. Bizimlə əlaqə saxlayın: <a href="tel:+994503161661">+994 50 316 16 61</a></div>
+    </form>
+  </div>
+</dialog>
+
 
 <!-- ================= ПОДВАЛ ================= -->
 <footer class="foot">
@@ -2750,6 +2798,44 @@ document.querySelectorAll('[data-upload]').forEach(function (box) {
     name.textContent = input.files && input.files.length ? input.files[0].name : 'Fayl seçilməyib';
   });
 });
+</script>
+<script>
+/* Форма расчёта в главном баннере */
+(function () {
+  'use strict';
+  var modal = document.getElementById('quote-modal');
+  var opener = null;
+  var openers = document.querySelectorAll('[data-quote-open]');
+  var form = modal.querySelector('[data-quote-form]');
+  var file = form.querySelector('[type="file"]');
+  openers.forEach(function (button) { button.addEventListener('click', function (e) {
+    opener = e.currentTarget;
+    e.preventDefault();
+    modal.showModal();
+    modal.scrollTop = 0;
+    document.documentElement.classList.add('menu-open');
+  }); });
+  modal.querySelector('[data-quote-close]').addEventListener('click', function () { modal.close(); });
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
+  modal.addEventListener('close', function () { document.documentElement.classList.remove('menu-open'); if (opener) opener.focus({ preventScroll: true }); });
+  function validateFile() {
+    var selected = file.files[0];
+    var error = '';
+    if (selected && selected.size > 10 * 1024 * 1024) error = "Faylın ölçüsü 10 MB-dan çox olmamalıdır.";
+    else if (selected && !/^image\//.test(selected.type) && !/\.(pdf|docx?|xlsx?|pptx?|txt|rtf|odt|ods|odp)$/i.test(selected.name)) error = "Sənəd və ya şəkil seçin.";
+    file.setCustomValidity(error);
+    return !error;
+  }
+  file.addEventListener('change', function () { validateFile(); file.reportValidity(); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validateFile() || !form.reportValidity()) return;
+    // Отправка подключается после настройки серверного обработчика.
+    var status = form.querySelector('[data-quote-status]');
+    status.hidden = false;
+    status.focus();
+  });
+})();
 </script>
 </body>
 </html>
