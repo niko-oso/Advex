@@ -1871,6 +1871,21 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   }
 }
 
+
+/* Форма расчёта: компоненты и токены дизайн-системы */
+.quote-modal { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 24px; border: 0; background: transparent; color: var(--ink); overflow-y: auto; }
+.quote-modal[open] { display: flex; }
+.quote-modal::backdrop { background: rgba(14, 17, 12, .6); }
+.quote-box { position: relative; width: 100%; max-width: 960px; flex-shrink: 0; margin: auto; padding: 40px 36px 32px; border-radius: var(--r-xl); background: var(--paper); }
+.quote-close { position: absolute; top: 16px; right: 16px; background: var(--bg); }
+.quote-box > .eyebrow { padding-right: 48px; margin-bottom: 20px; }
+.quote-box > .h2 { font-size: 46px; }
+.quote-form { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+.quote-file { height: auto; min-height: 58px; padding: 8px; }
+.quote-file::file-selector-button { margin-right: 14px; padding: 12px 18px; border: 0; border-radius: var(--r-sm); background: var(--sage); color: var(--ink); font: inherit; cursor: pointer; }
+.quote-file::file-selector-button:hover { background: var(--acc); }
+.quote-hint { font-size: 14px; line-height: 1.45; }
+@media (max-width: 720px) { .quote-modal { padding: 12px; } .quote-box { padding: 32px 20px 24px; border-radius: var(--r-md); } .quote-form .grid2 { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -2009,7 +2024,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <div class="hero-side">
         <p class="lead">Turnkey exhibition stands — from the first idea to meeting your clients.</p>
         <div class="btns">
-          <a href="#contact" class="btn btn-white">Get a quote<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+          <a href="#quote-modal" class="btn btn-white" data-quote-open aria-haspopup="dialog" aria-controls="quote-modal">Get a quote<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
           <a href="projects.html" class="btn btn-ghost-light">View projects</a>
         </div>
       </div>
@@ -2447,6 +2462,27 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 
 </main>
 
+<!-- ================= ФОРМА РАСЧЁТА ================= -->
+<dialog class="quote-modal" id="quote-modal" aria-labelledby="quote-title">
+  <div class="quote-box">
+    <button type="button" class="icon-btn quote-close" data-quote-close aria-label="Close"><svg width="22" height="22" aria-hidden="true"><use href="#i-close"/></svg></button>
+    <p class="eyebrow mono">Let’s bring your idea to life</p>
+    <h2 class="h2" id="quote-title">Get a quote</h2>
+    <form class="quote-form" action="#" method="post" data-quote-form>
+      <div class="grid2"><div class="fld"><label class="lbl" for="q-name">Your name *</label><input class="inp" id="q-name" name="name" type="text" autocomplete="name" required></div><div class="fld"><label class="lbl" for="q-company">Company</label><input class="inp" id="q-company" name="company" type="text" autocomplete="organization"></div></div>
+      <div class="fld"><label class="lbl" for="q-contact">Phone or email *</label><input class="inp" id="q-contact" name="contact" type="text" required></div>
+      <div class="grid2"><div class="fld"><label class="lbl" for="q-exhibition">Exhibition name</label><input class="inp" id="q-exhibition" name="exhibition" type="text" ></div><div class="fld"><label class="lbl" for="q-area">Area, m²</label><input class="inp" id="q-area" name="area" type="number" min="0" step="any"></div></div>
+      <div class="grid2"><div class="fld"><label class="lbl" for="q-date">Event date</label><input class="inp" id="q-date" name="event_date" type="date" ></div><div class="fld"><label class="lbl" for="q-structure">Structure type</label><input class="inp" id="q-structure" name="structure" type="text" ></div></div>
+      <div class="fld"><label class="lbl" for="q-task">Tell us about your project</label><textarea class="inp" id="q-task" name="message"></textarea></div>
+      <div class="fld"><label class="lbl" for="q-file">Brief or plan</label><input class="inp quote-file" id="q-file" name="brief" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp" aria-describedby="q-file-hint"><p class="muted quote-hint" id="q-file-hint">Document or image · up to 10 MB · the file is not uploaded to a server</p></div>
+      <label class="chk"><input type="checkbox" name="consent" required><span>I agree to the data processing terms described in the <a href="#">privacy policy</a>. *</span></label>
+      <button type="submit" class="btn btn-dark btn-block">Send request<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+      <div class="sent" role="status" tabindex="-1" data-quote-status hidden>Submitting through this form is currently unavailable. Contact us: <a href="tel:+994503161661">+994 50 316 16 61</a></div>
+    </form>
+  </div>
+</dialog>
+
+
 <!-- ================= ПОДВАЛ ================= -->
 <footer class="foot">
   <div class="wrap">
@@ -2484,7 +2520,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <span class="spacer"></span>
           <a href="about.html">About us</a>
           <a href="contacts.html">Contacts</a>
-          <a href="#">Delivery and payment</a>
+          <a href="delivery.html">Delivery and payment</a>
           <a href="#">Privacy policy</a>
         </div>
       </div>
@@ -2681,6 +2717,42 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       if (ok) { ok.hidden = false; ok.focus(); }
     });
   }
+})();
+
+
+/* Форма расчёта в главном баннере */
+(function () {
+  'use strict';
+  var modal = document.getElementById('quote-modal');
+  var opener = document.querySelector('[data-quote-open]');
+  var form = modal.querySelector('[data-quote-form]');
+  var file = form.querySelector('[type="file"]');
+  opener.addEventListener('click', function (e) {
+    e.preventDefault();
+    modal.showModal();
+    modal.scrollTop = 0;
+    document.documentElement.classList.add('menu-open');
+  });
+  modal.querySelector('[data-quote-close]').addEventListener('click', function () { modal.close(); });
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
+  modal.addEventListener('close', function () { document.documentElement.classList.remove('menu-open'); opener.focus({ preventScroll: true }); });
+  function validateFile() {
+    var selected = file.files[0];
+    var error = '';
+    if (selected && selected.size > 10 * 1024 * 1024) error = "The file must not exceed 10 MB.";
+    else if (selected && !/^image\//.test(selected.type) && !/\.(pdf|docx?|xlsx?|pptx?|txt|rtf|odt|ods|odp)$/i.test(selected.name)) error = "Choose a document or image.";
+    file.setCustomValidity(error);
+    return !error;
+  }
+  file.addEventListener('change', function () { validateFile(); file.reportValidity(); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validateFile() || !form.reportValidity()) return;
+    // Отправка подключается после настройки серверного обработчика.
+    var status = form.querySelector('[data-quote-status]');
+    status.hidden = false;
+    status.focus();
+  });
 })();
 
 </script>

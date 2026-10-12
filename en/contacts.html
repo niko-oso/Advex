@@ -1896,9 +1896,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 @media (max-width: 1100px) { .office-grid { grid-template-columns: 1fr; gap: 32px; } .office .map-box { min-height: 0; height: auto; aspect-ratio: 4 / 3; } }
 
 /* Попап «Задать вопрос» */
-.modal { position: fixed; inset: 0; z-index: 95; display: none; align-items: center; justify-content: center; padding: 24px; background: rgba(14, 17, 12, .6); }
+.modal { position: fixed; inset: 0; z-index: 95; display: none; align-items: center; justify-content: center; padding: 24px; overflow-y: auto; background: rgba(14, 17, 12, .6); }
 .modal.is-open { display: flex; }
-.modal-box { position: relative; width: 100%; max-width: 560px; max-height: calc(100vh - 48px); overflow-y: auto; padding: 40px 36px 32px; border-radius: var(--r-xl); background: #fff; display: flex; flex-direction: column; gap: 12px; }
+.modal-box { position: relative; width: 100%; max-width: 560px; max-height: none; overflow: visible; flex-shrink: 0; margin: auto; padding: 40px 36px 32px; border-radius: var(--r-xl); background: #fff; display: flex; flex-direction: column; gap: 12px; }
 .modal-box > .muted { font-size: 16px; }
 .modal-close { position: absolute; top: 16px; right: 16px; background: var(--bg); }
 .modal-f { display: flex; flex-direction: column; gap: 18px; margin-top: 12px; }
@@ -1913,6 +1913,16 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 @media (max-width: 720px) {
   .req-list { padding: 4px 20px; }
   .req-list div { grid-template-columns: 1fr; gap: 6px; padding: 18px 0; }
+}
+
+/* Контакты: заголовок в одну строку */
+.page-title { white-space: nowrap; font-size: clamp(18px, 6vw, 88px); }
+.page-title .mark { margin-top: 0; }
+@media (max-width: 720px) { .page-title { font-size: clamp(24px, 8.5vw, 42px); } }
+@media (min-width: 1101px) {
+  .page-head { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: center; }
+  .page-head-r { padding-bottom: 0; }
+  .page-head-r .lead { font-size: 18px; }
 }
 </style>
 </head>
@@ -2047,7 +2057,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   </nav>
   <div class="page-head">
     <div>
-      <h1 class="page-title" id="page-title">Contact<br><span class="mark">details</span></h1>
+      <h1 class="page-title" id="page-title">Contact <span class="mark">details</span></h1>
     </div>
     <div class="page-head-r">
       <p class="lead">Call, write or visit our office in Baku — we'll discuss your exhibition and find the right solution.</p>
@@ -2210,7 +2220,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <span class="spacer"></span>
           <a href="about.html">About us</a>
           <a href="contacts.html" class="is-current" aria-current="page">Contacts</a>
-          <a href="#">Delivery and payment</a>
+          <a href="delivery.html">Delivery and payment</a>
           <a href="#">Privacy policy</a>
         </div>
       </div>
