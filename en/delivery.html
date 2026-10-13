@@ -1950,6 +1950,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 .quote-hint { font-size: 14px; line-height: 1.45; }
 @media (max-width: 720px) { .quote-modal { padding: 12px; } .quote-box { padding: 32px 20px 24px; border-radius: var(--r-md); } .quote-form .grid2 { grid-template-columns: 1fr; } }
 </style>
+<link rel="stylesheet" href="../assets/site-ui.css">
 </head>
 <body>
 
@@ -2101,9 +2102,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 <section class="wrap" aria-labelledby="ways-title">
   <h2 class="sr-only" id="ways-title">Delivery options</h2>
   <ul class="icards">
-    <li class="icard pcard"><div class="pcard-img"><img src="../img/delivery_page/card4.png" alt="" loading="lazy"></div><h3>To the venue</h3><p>The address, access passes and unloading requirements are confirmed before a quote is prepared.</p></li>
-    <li class="icard pcard"><div class="pcard-img"><img src="../img/delivery_page/card5.png" alt="" loading="lazy"></div><h3>Large structures</h3><p>The route, dimensions and transport method are planned around the items in your order.</p></li>
-    <li class="icard pcard"><div class="pcard-img"><img src="../img/delivery_page/card6.png" alt="" loading="lazy"></div><h3>After the event</h3><p>Dismantling and the return of rented items are agreed in advance.</p></li>
+    <li class="icard pcard"><div class="pcard-img"><img src="../img/delivery_page/card4.webp" alt="" loading="lazy"></div><h3>To the venue</h3><p>The address, access passes and unloading requirements are confirmed before a quote is prepared.</p></li>
+    <li class="icard pcard"><div class="pcard-img"><img src="../img/delivery_page/card5.webp" alt="" loading="lazy"></div><h3>Large structures</h3><p>The route, dimensions and transport method are planned around the items in your order.</p></li>
+    <li class="icard pcard"><div class="pcard-img"><img src="../img/delivery_page/card6.webp" alt="" loading="lazy"></div><h3>After the event</h3><p>Dismantling and the return of rented items are agreed in advance.</p></li>
   </ul>
 </section>
 
@@ -2151,9 +2152,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <a href="#quote-modal" class="btn btn-white" data-quote-open aria-haspopup="dialog" aria-controls="quote-modal">Request a quote<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
     </div>
     <ul class="cost-grid">
-      <li class="ph"><img src="../img/delivery_page/card1.png" alt="" loading="lazy"><h3>Service area</h3><p>Confirmed based on the event address</p></li>
-      <li class="ph"><img src="../img/delivery_page/card2.png" alt="" loading="lazy"><h3>Delivery cost</h3><p>Based on volume, dimensions and route</p></li>
-      <li class="ph"><img src="../img/delivery_page/card3.png" alt="" loading="lazy"><h3>Equipment return</h3><p>According to the agreed schedule and item list</p></li>
+      <li class="ph"><img src="../img/delivery_page/card1.webp" alt="" loading="lazy"><h3>Service area</h3><p>Confirmed based on the event address</p></li>
+      <li class="ph"><img src="../img/delivery_page/card2.webp" alt="" loading="lazy"><h3>Delivery cost</h3><p>Based on volume, dimensions and route</p></li>
+      <li class="ph"><img src="../img/delivery_page/card3.webp" alt="" loading="lazy"><h3>Equipment return</h3><p>According to the agreed schedule and item list</p></li>
     </ul>
   </div>
 </section>
@@ -2181,7 +2182,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <h2 class="h2" id="faq-title">Good questions.<br>Clear answers.</h2>
       </div>
       <div>
-        <a href="index.html#contact" class="btn btn-dark">Ask a question<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a href="#question-modal" class="btn btn-dark" data-question-open aria-haspopup="dialog" aria-controls="question-modal">Ask a question<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
     <div class="faq-r">
@@ -2246,7 +2247,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <div class="grid2"><div class="fld"><label class="lbl" for="q-date">Event date</label><input class="inp" id="q-date" name="event_date" type="date" ></div><div class="fld"><label class="lbl" for="q-structure">Structure type</label><input class="inp" id="q-structure" name="structure" type="text" ></div></div>
       <div class="fld"><label class="lbl" for="q-task">Tell us about your project</label><textarea class="inp" id="q-task" name="message"></textarea></div>
       <div class="fld"><label class="lbl" for="q-file">Brief or plan</label><input class="inp quote-file" id="q-file" name="brief" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp" aria-describedby="q-file-hint"><p class="muted quote-hint" id="q-file-hint">Document or image · up to 10 MB · the file is not uploaded to a server</p></div>
-      <label class="chk"><input type="checkbox" name="consent" required><span>I agree to the data processing terms described in the <a href="#">privacy policy</a>. *</span></label>
+      <label class="chk"><input type="checkbox" name="consent" required><span>I agree to the data processing terms described in the <a href="privacy.html">privacy policy</a>. *</span></label>
       <button type="submit" class="btn btn-dark btn-block">Send request<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <div class="sent" role="status" tabindex="-1" data-quote-status hidden>Submitting through this form is currently unavailable. Contact us: <a href="tel:+994503161661">+994 50 316 16 61</a></div>
     </form>
@@ -2292,7 +2293,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <a href="about.html">About us</a>
           <a href="contacts.html">Contacts</a>
           <a href="delivery.html" aria-current="page">Delivery and payment</a>
-          <a href="#">Privacy policy</a>
+          <a href="privacy.html">Privacy policy</a>
         </div>
       </div>
       <div class="foot-bar">
@@ -2397,45 +2398,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('is-open')) { close(); btn.focus(); } });
   });
 
-  /* ---------- Подборка оборудования ---------- */
-  var cart = {};
-  var counters = document.querySelectorAll('[data-cart-count]');
-  var words = document.querySelectorAll('[data-cart-word]');
-  var cartBtn = document.querySelector('[data-cart-button]');
-
-  // Формы слова берутся из data-forms (для AZ и EN заданы в разметке).
-  function plural(n, forms) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return forms[0];
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
-    return forms[2];
-  }
-
-  function renderCart() {
-    var n = Object.keys(cart).length;
-    counters.forEach(function (el) { el.textContent = n; });
-    words.forEach(function (el) {
-      var forms = (el.getAttribute('data-forms') || 'позиция|позиции|позиций').split('|');
-      el.textContent = plural(n, forms);
-    });
-    if (cartBtn) {
-      var label = cartBtn.getAttribute('data-label') || 'Подборка оборудования';
-      cartBtn.setAttribute('aria-label', label + ': ' + n);
-    }
-  }
-
-  document.querySelectorAll('[data-add]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-add');
-      var name = btn.getAttribute('data-name') || '';
-      var inCart = !cart[id];
-      if (inCart) cart[id] = 1; else delete cart[id];
-      btn.setAttribute('aria-pressed', String(inCart));
-      btn.setAttribute('aria-label', (inCart ? T.remove : T.add) + name);
-      renderCart();
-    });
-  });
-  renderCart();
+  /* Корзина управляется общим интерфейсом site-ui.js. */
 
   /* ---------- Слайдер отзывов ---------- */
   var track = document.querySelector('[data-rev-track]');
@@ -2529,5 +2492,6 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   });
 })();
 </script>
+<script src="../assets/site-ui.js"></script>
 </body>
 </html>

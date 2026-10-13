@@ -1918,6 +1918,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 @media (max-width: 1100px) { .appr { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 720px) { .appr { grid-template-columns: 1fr; } }
 </style>
+<link rel="stylesheet" href="../assets/site-ui.css">
+<link rel="stylesheet" href="../assets/about-consultation.css">
 </head>
 <body>
 
@@ -2050,8 +2052,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   </nav>
   <div class="hero-media about-hero">
     <picture>
-      <source media="(max-width: 768px)" srcset="../img/about_m.png">
-      <img class="hero-bg" src="../img/about.png" alt="Команда ADVEX" fetchpriority="high">
+      <source media="(max-width: 768px)" srcset="../img/about_m.webp">
+      <img class="hero-bg" src="../img/about.webp" alt="Команда ADVEX" fetchpriority="high">
     </picture>
     <div class="hero-top">
       <div>
@@ -2060,7 +2062,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <div class="hero-side">
         <p class="lead">ADVEX — рекламная компания из Баку. Разрабатываем дизайн выставочных стендов, выполняем монтаж и демонтаж, предоставляем мебель и оборудование в аренду.</p>
         <div class="btns">
-          <a href="index.html#contact" class="btn btn-white">Получить консультацию<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+          <a href="#consultation-modal" class="btn btn-white" data-consultation-open aria-haspopup="dialog" aria-controls="consultation-modal">Получить консультацию<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
         </div>
       </div>
     </div>
@@ -2090,9 +2092,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       </div>
     </div>
     <ul class="facts">
-      <li><div class="facts-img"><img src="../img/about_page/card1.png" alt="" loading="lazy"><span class="facts-tag"><span class="dot"></span>2022</span></div><h3>Основание компании</h3><p>20 мая</p></li>
-      <li><div class="facts-img"><img src="../img/about_page/card2.png" alt="" loading="lazy"><span class="facts-tag"><span class="dot"></span>2023</span></div><h3>Вступление в АСТА</h3><p>Ассоциация организаторов выставок Азербайджана</p></li>
-      <li><div class="facts-img"><img src="../img/about_page/card3.png" alt="" loading="lazy"><span class="facts-tag"><span class="dot"></span>Баку</span></div><h3>Офис ADVEX</h3><p>Азербайджан, Баку, Хатаинский район, ул. Наджафгулу Рафиева, 29</p></li>
+      <li><div class="facts-img"><img src="../img/about_page/card1.webp" alt="" loading="lazy"><span class="facts-tag"><span class="dot"></span>2022</span></div><h3>Основание компании</h3><p>20 мая</p></li>
+      <li><div class="facts-img"><img src="../img/about_page/card2.webp" alt="" loading="lazy"><span class="facts-tag"><span class="dot"></span>2023</span></div><h3>Вступление в АСТА</h3><p>Ассоциация организаторов выставок Азербайджана</p></li>
+      <li><div class="facts-img"><img src="../img/about_page/card3.webp" alt="" loading="lazy"><span class="facts-tag"><span class="dot"></span>Баку</span></div><h3>Офис ADVEX</h3><p>Азербайджан, Баку, Хатаинский район, ул. Наджафгулу Рафиева, 29</p></li>
     </ul>
   </div>
 </section>
@@ -2106,9 +2108,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     </div>
   </div>
   <ul class="appr">
-    <li><div class="appr-img"><img src="../img/stands_img/01-Дизайн-и-проектирование.png" alt="Дизайн-проект" loading="lazy"></div><h3>Дизайн-проект</h3><p>Разрабатываем проект по техническому заданию заказчика.</p></li>
-    <li><div class="appr-img"><img src="../img/stands_img/06-Монтаж-и-демонтаж.png" alt="Монтаж и демонтаж" loading="lazy"></div><h3>Монтаж и демонтаж</h3><p>Собираем стенд в выставочном павильоне по утверждённому проекту и демонтируем после события.</p></li>
-    <li><div class="appr-img"><img src="../img/shop/divan.png" alt="Мебель и оборудование" loading="lazy"></div><h3>Мебель и оборудование</h3><p>Предоставляем оснащение в аренду на время выставки.</p></li>
+    <li><div class="appr-img"><img src="../img/stands_img/01-Дизайн-и-проектирование.webp" alt="Дизайн-проект" loading="lazy"></div><h3>Дизайн-проект</h3><p>Разрабатываем проект по техническому заданию заказчика.</p></li>
+    <li><div class="appr-img"><img src="../img/stands_img/06-Монтаж-и-демонтаж.webp" alt="Монтаж и демонтаж" loading="lazy"></div><h3>Монтаж и демонтаж</h3><p>Собираем стенд в выставочном павильоне по утверждённому проекту и демонтируем после события.</p></li>
+    <li><div class="appr-img"><img src="../img/shop/divan.webp" alt="Мебель и оборудование" loading="lazy"></div><h3>Мебель и оборудование</h3><p>Предоставляем оснащение в аренду на время выставки.</p></li>
   </ul>
 </section>
 
@@ -2126,10 +2128,10 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   </div>
 
   <ul class="proj-grid">
-    <li class="p-a"><a href="projects.html" class="proj"><img src="../img/case/case1.png" width="479" height="271" alt="Стенд SANSA" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Стенд SANSA</h3><span class="mono">01</span></div><span class="muted">Островная экспозиция</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
-    <li class="p-b"><a href="projects.html" class="proj"><img src="../img/case/case2.png" width="477" height="271" alt="Экспозиция Волгоградской области" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Волгоградская область · экспозиция</h3><span class="mono">02</span></div><span class="muted">Объединённый стенд участников</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
-    <li class="p-c"><a href="projects.html" class="proj"><img src="../img/case/case3.png" width="479" height="270" alt="Стенд Мексика · Керетаро" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Мексика · Керетаро</h3><span class="mono">03</span></div><span class="muted">Туристическая презентация</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
-    <li class="p-d"><a href="projects.html" class="proj"><img src="../img/case/case4.png" width="477" height="270" alt="Стенд Sensemi Azerbaijan" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Стенд Sensemi Azerbaijan</h3><span class="mono">04</span></div><span class="muted">Стенд с деревянными рейками</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-a"><a href="projects.html" class="proj"><img src="../img/case/case1.webp" width="479" height="271" alt="Стенд SANSA" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Стенд SANSA</h3><span class="mono">01</span></div><span class="muted">Островная экспозиция</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-b"><a href="projects.html" class="proj"><img src="../img/case/case2.webp" width="477" height="271" alt="Экспозиция Волгоградской области" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Волгоградская область · экспозиция</h3><span class="mono">02</span></div><span class="muted">Объединённый стенд участников</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-c"><a href="projects.html" class="proj"><img src="../img/case/case3.webp" width="479" height="270" alt="Стенд Мексика · Керетаро" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Мексика · Керетаро</h3><span class="mono">03</span></div><span class="muted">Туристическая презентация</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-d"><a href="projects.html" class="proj"><img src="../img/case/case4.webp" width="477" height="270" alt="Стенд Sensemi Azerbaijan" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>Проект ADVEX</span><div class="proj-info"><div class="row"><h3>Стенд Sensemi Azerbaijan</h3><span class="mono">04</span></div><span class="muted">Стенд с деревянными рейками</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
   </ul>
 </section>
 
@@ -2155,9 +2157,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <span class="stars" aria-label="Оценка 5 из 5"><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg></span>
         <p>Средняя оценка по отзывам на картах. Читаем каждый и отвечаем на все.</p>
         <ul class="rev-src">
-          <li><svg class="pin" width="22" height="22" aria-hidden="true" style="color:#D4F14B"><use href="#i-pin"/></svg>Google Maps<b>4,9</b></li>
-          <li><svg class="pin" width="22" height="22" aria-hidden="true" style="color:#FFFFFF"><use href="#i-pin"/></svg>Яндекс Карты<b>4,9</b></li>
-          <li><svg class="pin" width="22" height="22" aria-hidden="true" style="color:#9FD9A8"><use href="#i-pin"/></svg>2ГИС<b>4,8</b></li>
+          <li><span class="review-brand-google"><img src="../img/review-brands/google-maps-white.svg" alt="Google Maps" translate="no"></span><b>4,9</b></li>
+          <li><img class="review-brand-icon" src="../img/review-brands/yandex-maps.svg" alt="" aria-hidden="true">Яндекс Карты<b>4,9</b></li>
+          <li><img class="review-brand-icon" src="../img/review-brands/2gis.svg" alt="" aria-hidden="true">2ГИС<b>4,8</b></li>
         </ul>
       </div>
 
@@ -2274,7 +2276,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <a href="about.html" class="is-current" aria-current="page">О компании</a>
           <a href="contacts.html">Контакты</a>
           <a href="delivery.html">Доставка и оплата</a>
-          <a href="#">Политика конфиденциальности</a>
+          <a href="privacy.html">Политика конфиденциальности</a>
         </div>
       </div>
       <div class="foot-bar">
@@ -2379,45 +2381,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('is-open')) { close(); btn.focus(); } });
   });
 
-  /* ---------- Подборка оборудования ---------- */
-  var cart = {};
-  var counters = document.querySelectorAll('[data-cart-count]');
-  var words = document.querySelectorAll('[data-cart-word]');
-  var cartBtn = document.querySelector('[data-cart-button]');
-
-  // Формы слова берутся из data-forms (для AZ и EN заданы в разметке).
-  function plural(n, forms) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return forms[0];
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
-    return forms[2];
-  }
-
-  function renderCart() {
-    var n = Object.keys(cart).length;
-    counters.forEach(function (el) { el.textContent = n; });
-    words.forEach(function (el) {
-      var forms = (el.getAttribute('data-forms') || 'позиция|позиции|позиций').split('|');
-      el.textContent = plural(n, forms);
-    });
-    if (cartBtn) {
-      var label = cartBtn.getAttribute('data-label') || 'Подборка оборудования';
-      cartBtn.setAttribute('aria-label', label + ': ' + n);
-    }
-  }
-
-  document.querySelectorAll('[data-add]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-add');
-      var name = btn.getAttribute('data-name') || '';
-      var inCart = !cart[id];
-      if (inCart) cart[id] = 1; else delete cart[id];
-      btn.setAttribute('aria-pressed', String(inCart));
-      btn.setAttribute('aria-label', (inCart ? T.remove : T.add) + name);
-      renderCart();
-    });
-  });
-  renderCart();
+  /* Корзина управляется общим интерфейсом site-ui.js. */
 
   /* ---------- Слайдер отзывов ---------- */
   var track = document.querySelector('[data-rev-track]');
@@ -2473,5 +2437,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 })();
 
 </script>
+<script src="../assets/site-ui.js"></script>
+<script src="../assets/about-consultation.js"></script>
 </body>
 </html>

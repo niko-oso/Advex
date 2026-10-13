@@ -1874,6 +1874,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 
 /* СТРАНИЦА: Каталог стендов — все компоненты из ядра (крошки, заголовок страницы, CTA-панель) */
 </style>
+<link rel="stylesheet" href="../assets/site-ui.css">
+<link rel="stylesheet" href="../assets/catalog-popups.css">
 </head>
 <body>
 
@@ -2019,18 +2021,18 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 <!-- ================= СЕТКА КОНСТРУКЦИЙ ================= -->
 <section class="wrap" aria-label="Конструкции">
   <ul class="cat-grid">
-    <li><a href="stands/roll-up/index.html" class="tile"><div class="tile-img"><img src="../img/category/01-Ролл-ап.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Ролл-ап</span></div></a></li>
-    <li><a href="stands/pop-up/index.html" class="tile"><div class="tile-img"><img src="../img/category/02-Поп-ап.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Поп-ап</span></div></a></li>
-    <li><a href="stands/banner/index.html" class="tile"><div class="tile-img"><img src="../img/category/03-Баннерные-стенды.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Баннерные стенды</span></div></a></li>
-    <li><a href="stands/fold-up/index.html" class="tile"><div class="tile-img"><img src="../img/category/04-Фолд-ап.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Фолд-ап</span></div></a></li>
-    <li><a href="stands/press-wall/index.html" class="tile"><div class="tile-img"><img src="../img/category/05-Пресс-волл.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Пресс-волл</span></div></a></li>
-    <li><a href="stands/fabric/index.html" class="tile"><div class="tile-img"><img src="../img/category/06-Тканевые-стенды.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Тканевые стенды</span></div></a></li>
-    <li><a href="stands/custom/index.html" class="tile"><div class="tile-img"><img src="../img/category/07-Выставочные-застройки.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Выставочные застройки</span></div></a></li>
-    <li><a href="stands/reception/index.html" class="tile"><div class="tile-img"><img src="../img/category/08-Ресепшен.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Ресепшен</span></div></a></li>
-    <li><a href="stands/print/index.html" class="tile"><div class="tile-img"><img src="../img/category/09-Полиграфия.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Полиграфия</span></div></a></li>
-    <li><a href="stands/promo/index.html" class="tile"><div class="tile-img"><img src="../img/category/10-Промостойки.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Промостойки</span></div></a></li>
-    <li><a href="stands/signs/index.html" class="tile"><div class="tile-img"><img src="../img/category/11-Рекламные-вывески.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Рекламные вывески</span></div></a></li>
-    <li><a href="stands/brochure/index.html" class="tile"><div class="tile-img"><img src="../img/category/12-Буклетницы.png" alt="" loading="lazy"><span class="tile-more">Перейти</span></div><div class="tile-cap"><span>Буклетницы</span></div></a></li>
+    <li><a href="stands/roll-up/index.html" class="tile" data-catalog-open="1" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/01-Ролл-ап.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Ролл-ап</span></div></a></li>
+    <li><a href="stands/pop-up/index.html" class="tile" data-catalog-open="2" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/02-Поп-ап.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Поп-ап</span></div></a></li>
+    <li><a href="stands/banner/index.html" class="tile" data-catalog-open="3" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/03-Баннерные-стенды.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Баннерные стенды</span></div></a></li>
+    <li><a href="stands/fold-up/index.html" class="tile" data-catalog-open="4" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/04-Фолд-ап.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Фолд-ап</span></div></a></li>
+    <li><a href="stands/press-wall/index.html" class="tile" data-catalog-open="5" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/05-Пресс-волл.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Пресс-волл</span></div></a></li>
+    <li><a href="stands/fabric/index.html" class="tile" data-catalog-open="6" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/06-Тканевые-стенды.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Тканевые стенды</span></div></a></li>
+    <li><a href="stands/custom/index.html" class="tile" data-catalog-open="7" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/07-Выставочные-застройки.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Выставочные застройки</span></div></a></li>
+    <li><a href="stands/reception/index.html" class="tile" data-catalog-open="8" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/08-Ресепшен.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Ресепшен</span></div></a></li>
+    <li><a href="stands/print/index.html" class="tile" data-catalog-open="9" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/09-Полиграфия.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Полиграфия</span></div></a></li>
+    <li><a href="stands/promo/index.html" class="tile" data-catalog-open="10" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/10-Промостойки.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Промостойки</span></div></a></li>
+    <li><a href="stands/signs/index.html" class="tile" data-catalog-open="11" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/11-Рекламные-вывески.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Рекламные вывески</span></div></a></li>
+    <li><a href="stands/brochure/index.html" class="tile" data-catalog-open="12" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="../img/category/12-Буклетницы.webp" alt="" loading="lazy"><span class="tile-more">Смотреть</span></div><div class="tile-cap"><span>Буклетницы</span></div></a></li>
   </ul>
 </section>
 
@@ -2095,7 +2097,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <a href="about.html">О компании</a>
           <a href="contacts.html">Контакты</a>
           <a href="delivery.html">Доставка и оплата</a>
-          <a href="#">Политика конфиденциальности</a>
+          <a href="privacy.html">Политика конфиденциальности</a>
         </div>
       </div>
       <div class="foot-bar">
@@ -2200,45 +2202,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('is-open')) { close(); btn.focus(); } });
   });
 
-  /* ---------- Подборка оборудования ---------- */
-  var cart = {};
-  var counters = document.querySelectorAll('[data-cart-count]');
-  var words = document.querySelectorAll('[data-cart-word]');
-  var cartBtn = document.querySelector('[data-cart-button]');
-
-  // Формы слова берутся из data-forms (для AZ и EN заданы в разметке).
-  function plural(n, forms) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return forms[0];
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
-    return forms[2];
-  }
-
-  function renderCart() {
-    var n = Object.keys(cart).length;
-    counters.forEach(function (el) { el.textContent = n; });
-    words.forEach(function (el) {
-      var forms = (el.getAttribute('data-forms') || 'позиция|позиции|позиций').split('|');
-      el.textContent = plural(n, forms);
-    });
-    if (cartBtn) {
-      var label = cartBtn.getAttribute('data-label') || 'Подборка оборудования';
-      cartBtn.setAttribute('aria-label', label + ': ' + n);
-    }
-  }
-
-  document.querySelectorAll('[data-add]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-add');
-      var name = btn.getAttribute('data-name') || '';
-      var inCart = !cart[id];
-      if (inCart) cart[id] = 1; else delete cart[id];
-      btn.setAttribute('aria-pressed', String(inCart));
-      btn.setAttribute('aria-label', (inCart ? T.remove : T.add) + name);
-      renderCart();
-    });
-  });
-  renderCart();
+  /* Корзина управляется общим интерфейсом site-ui.js. */
 
   /* ---------- Слайдер отзывов ---------- */
   var track = document.querySelector('[data-rev-track]');
@@ -2294,5 +2258,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 })();
 
 </script>
+<script src="../assets/site-ui.js"></script>
+<script src="../assets/catalog-popups.js"></script>
 </body>
 </html>

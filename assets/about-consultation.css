@@ -1,0 +1,4 @@
+.consultation-title { padding-right: 48px; }
+.consultation-lead { margin-top: 16px; }
+.consultation-form { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+@media (max-width: 768px) { .consultation-form .grid2 { grid-template-columns: 1fr; } }

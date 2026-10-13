@@ -2025,7 +2025,14 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
 .where-photo { border-radius: var(--r-md); overflow: hidden; aspect-ratio: 7 / 5; background: #CFD3C6; }
 .where-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
 .where-photo:hover img { transform: scale(1.04); }
+
+/* Порядок работы с персоналом — оформление как на главной */
+[aria-labelledby="steps-title"] .step { background: var(--paper); color: var(--ink); }
+[aria-labelledby="steps-title"] .step .num { background: var(--acc); color: var(--ink); }
+[aria-labelledby="steps-title"] .step p { color: var(--mute); }
 </style>
+<link rel="stylesheet" href="../assets/site-ui.css">
+<link rel="stylesheet" href="../assets/staff-profiles.css">
 </head>
 <body>
 
@@ -2169,7 +2176,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
     </div>
   </div>
   <div class="page-photo">
-    <img src="../img/model/bg.png" alt="ADVEX exhibition stand with the team on site" fetchpriority="high">
+    <img src="../img/model/bg.webp" alt="ADVEX exhibition stand with the team on site" fetchpriority="high">
     <span class="chip pos-tl"><span class="dot"></span>We welcome. We engage. We inspire.</span>
     <ul class="hero-tabs">
       <li><a href="#roles-title" class="htab is-first"><span class="t"><span class="mono">01</span><b>Staff roles</b></span><span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
@@ -2196,7 +2203,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
       </div>
     </div>
     <ul class="svc-grid" data-slider-track tabindex="0" aria-label="Staff roles">
-      <li class="svc-card"><div class="svc-img"><img src="../img/staff/01-Хостес.png" alt="Hostesses" loading="lazy"></div><h3>Hostesses</h3><p>Welcoming and guiding guests</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/02-Промомодели.png" alt="Promo models" loading="lazy"></div><h3>Promo models</h3><p>Product presentations and promotions</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/03-Стендисты.png" alt="Stand staff" loading="lazy"></div><h3>Stand staff</h3><p>Working the stand and answering questions</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/04-Регистрация.png" alt="Registration" loading="lazy"></div><h3>Registration</h3><p>Attendee registration and wayfinding</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/05-Переводчики.png" alt="Interpreters" loading="lazy"></div><h3>Interpreters</h3><p>Language support at meetings</p></li>
+      <li class="svc-card"><div class="svc-img"><img src="../img/staff/01-Хостес.webp" alt="Hostesses" loading="lazy"></div><h3>Hostesses</h3><p>Welcoming and guiding guests</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/02-Промомодели.webp" alt="Promo models" loading="lazy"></div><h3>Promo models</h3><p>Product presentations and promotions</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/03-Стендисты.webp" alt="Stand staff" loading="lazy"></div><h3>Stand staff</h3><p>Working the stand and answering questions</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/04-Регистрация.webp" alt="Registration" loading="lazy"></div><h3>Registration</h3><p>Attendee registration and wayfinding</p></li><li class="svc-card"><div class="svc-img"><img src="../img/staff/05-Переводчики.webp" alt="Interpreters" loading="lazy"></div><h3>Interpreters</h3><p>Language support at meetings</p></li>
     </ul>
     <div class="svc-bottom" data-slider-nav>
       <button type="button" class="rev-arrow prev svc-arrow-m" data-slider-prev aria-label="Back"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -2238,12 +2245,12 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
     </div>
   </div>
   <ul class="cat-grid profiles" data-filter-list>
-    <li data-type="hostess" data-langs="az en ru"><a href="#contact" class="tile"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model1.png" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 01</span><span class="tile-sub">Hostesses</span><span class="tile-lang">Azerbaijani / English / Russian</span></div></a></li>
-    <li data-type="promo" data-langs="az ru"><a href="#contact" class="tile"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model2.png" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 02</span><span class="tile-sub">Promo models</span><span class="tile-lang">Azerbaijani / Russian</span></div></a></li>
-    <li data-type="stand" data-langs="en ru"><a href="#contact" class="tile"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model3.png" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 03</span><span class="tile-sub">Stand staff</span><span class="tile-lang">English / Russian</span></div></a></li>
-    <li data-type="reg" data-langs="az en"><a href="#contact" class="tile"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model4.png" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 04</span><span class="tile-sub">Registration</span><span class="tile-lang">Azerbaijani / English</span></div></a></li>
-    <li data-type="interp" data-langs="az en ru"><a href="#contact" class="tile"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model5.png" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 05</span><span class="tile-sub">Interpreters</span><span class="tile-lang">Azerbaijani / English / Russian</span></div></a></li>
-    <li data-type="stand" data-langs="az en"><a href="#contact" class="tile"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model6.png" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 06</span><span class="tile-sub">Stand staff</span><span class="tile-lang">Azerbaijani / English</span></div></a></li>
+    <li data-type="hostess" data-langs="az en ru"><a href="#profile-modal" class="tile" data-profile-open="01" aria-haspopup="dialog" aria-controls="profile-modal"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model1.webp" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 01</span><span class="tile-sub">Hostesses</span><span class="tile-lang">Azerbaijani / English / Russian</span></div></a></li>
+    <li data-type="promo" data-langs="az ru"><a href="#profile-modal" class="tile" data-profile-open="02" aria-haspopup="dialog" aria-controls="profile-modal"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model2.webp" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 02</span><span class="tile-sub">Promo models</span><span class="tile-lang">Azerbaijani / Russian</span></div></a></li>
+    <li data-type="stand" data-langs="en ru"><a href="#profile-modal" class="tile" data-profile-open="03" aria-haspopup="dialog" aria-controls="profile-modal"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model3.webp" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 03</span><span class="tile-sub">Stand staff</span><span class="tile-lang">English / Russian</span></div></a></li>
+    <li data-type="reg" data-langs="az en"><a href="#profile-modal" class="tile" data-profile-open="04" aria-haspopup="dialog" aria-controls="profile-modal"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model4.webp" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 04</span><span class="tile-sub">Registration</span><span class="tile-lang">Azerbaijani / English</span></div></a></li>
+    <li data-type="interp" data-langs="az en ru"><a href="#profile-modal" class="tile" data-profile-open="05" aria-haspopup="dialog" aria-controls="profile-modal"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model5.webp" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 05</span><span class="tile-sub">Interpreters</span><span class="tile-lang">Azerbaijani / English / Russian</span></div></a></li>
+    <li data-type="stand" data-langs="az en"><a href="#profile-modal" class="tile" data-profile-open="06" aria-haspopup="dialog" aria-controls="profile-modal"><span class="chip">Demo profile</span><div class="tile-img"><img src="../img/staff/model6.webp" alt="" loading="lazy"><span class="tile-more">View profile</span></div><div class="tile-cap"><span>Profile 06</span><span class="tile-sub">Stand staff</span><span class="tile-lang">Azerbaijani / English</span></div></a></li>
   </ul>
   <p class="flt-empty" data-filter-empty hidden>No profiles match these filters. Try resetting them.</p>
   <p class="note-ai">Photos are AI-generated. Profiles are fictional and illustrate how staff selection works.</p>
@@ -2261,12 +2268,12 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
     </div>
   </div>
   <ol class="steps">
-    <li class="step s1"><div class="top"><span class="num">01</span></div><h3>Request</h3><p>Event date, venue and goals.</p></li>
-    <li class="step s2"><div class="top"><span class="num">02</span></div><h3>Requirements</h3><p>Roles, languages and schedule.</p></li>
-    <li class="step s3"><div class="top"><span class="num">03</span></div><h3>Selection</h3><p>Candidates matched to your brief.</p></li>
-    <li class="step s4"><div class="top"><span class="num">04</span></div><h3>Approval</h3><p>We confirm the team line-up.</p></li>
-    <li class="step s5"><div class="top"><span class="num">05</span></div><h3>Preparation</h3><p>Event briefing.</p></li>
-    <li class="step s6"><div class="top"><span class="num">06</span></div><h3>Event</h3><p>Work to the agreed plan.</p></li>
+    <li class="step s1"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8Z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h5"/></svg></span></div><h3>Request</h3><p>Event date, venue and goals.</p></li>
+    <li class="step s2"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5h11M9 12h11M9 19h11m-17-14 1 1 2-2m-3 8 1 1 2-2m-3 8 1 1 2-2"/></svg></span></div><h3>Requirements</h3><p>Roles, languages and schedule.</p></li>
+    <li class="step s3"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M16 5a3 3 0 0 1 0 6M18 14a5 5 0 0 1 3 4v2"/></svg></span></div><h3>Selection</h3><p>Candidates matched to your brief.</p></li>
+    <li class="step s4"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8Z"/><path d="M14 3v5h5m-10 7 2 2 5-5"/></svg></span></div><h3>Approval</h3><p>We confirm the team line-up.</p></li>
+    <li class="step s5"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M9 5V3h6v2M8 11h8M8 15h8M8 18h5"/></svg></span></div><h3>Preparation</h3><p>Event briefing.</p></li>
+    <li class="step s6"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18m-13 5 3 3 5-5"/></svg></span></div><h3>Event</h3><p>Work to the agreed plan.</p></li>
   </ol>
 </section>
 
@@ -2285,7 +2292,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
       </ul>
       <a href="#contact" class="btn btn-dark">Find staff<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
     </div>
-    <div class="where-photo"><img src="../img/staff/block5.png" alt="ADVEX staff at an exhibition" loading="lazy"></div>
+    <div class="where-photo"><img src="../img/staff/block5.webp" alt="ADVEX staff at an exhibition" loading="lazy"></div>
   </div>
 </section>
 
@@ -2298,9 +2305,9 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
     </div>
   </div>
   <ul class="appr">
-    <li><div class="appr-img"><img src="../img/stands_img/01-Единая-концепция.png" alt="Unified concept" loading="lazy"></div><h3>Unified concept</h3><p>Stand, graphics and equipment in one visual solution.</p></li>
-    <li><div class="appr-img"><img src="../img/stands_img/02-Понятный-состав-работ.png" alt="Clear scope of work" loading="lazy"></div><h3>Clear scope of work</h3><p>We agree on tasks, stages and budget before production starts.</p></li>
-    <li><div class="appr-img"><img src="../img/stands_img/03-Внимание-к-площадке.png" alt="Venue-aware planning" loading="lazy"></div><h3>Venue-aware planning</h3><p>Layout and logistics account for the event format.</p></li>
+    <li><div class="appr-img"><img src="../img/stands_img/01-Единая-концепция.webp" alt="Unified concept" loading="lazy"></div><h3>Unified concept</h3><p>Stand, graphics and equipment in one visual solution.</p></li>
+    <li><div class="appr-img"><img src="../img/stands_img/02-Понятный-состав-работ.webp" alt="Clear scope of work" loading="lazy"></div><h3>Clear scope of work</h3><p>We agree on tasks, stages and budget before production starts.</p></li>
+    <li><div class="appr-img"><img src="../img/stands_img/03-Внимание-к-площадке.webp" alt="Venue-aware planning" loading="lazy"></div><h3>Venue-aware planning</h3><p>Layout and logistics account for the event format.</p></li>
   </ul>
 </section>
 
@@ -2314,7 +2321,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
         <h2 class="h2" id="faq-title">Good questions.<br>Clear answers.</h2>
       </div>
       <div>
-        <a href="#contact" class="btn btn-dark">Ask a question<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a href="#question-modal" class="btn btn-dark" data-question-open aria-haspopup="dialog" aria-controls="question-modal">Ask a question<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
     <div class="faq-r">
@@ -2398,7 +2405,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
       </fieldset>
       <div class="fld"><label class="lbl" for="f-task">Tell us about your project</label><textarea class="inp" id="f-task" name="message" placeholder="Staff tasks, shift schedule, dress code"></textarea></div>
 
-      <label class="chk"><input type="checkbox" name="consent" required><span>I agree to the data processing terms described in the <a href="#">privacy policy</a>. *</span></label>
+      <label class="chk"><input type="checkbox" name="consent" required><span>I agree to the data processing terms described in the <a href="privacy.html">privacy policy</a>. *</span></label>
 
       <button type="submit" class="btn btn-dark btn-block">Send request<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <div class="sent" role="status" tabindex="-1" hidden><span class="ok"><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg></span>Thank you! Your request has been sent — we'll be in touch.</div>
@@ -2446,7 +2453,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
           <a href="about.html">About us</a>
           <a href="contacts.html">Contacts</a>
           <a href="delivery.html">Delivery and payment</a>
-          <a href="#">Privacy policy</a>
+          <a href="privacy.html">Privacy policy</a>
         </div>
       </div>
       <div class="foot-bar">
@@ -2551,45 +2558,7 @@ select.inp { appearance: none; -webkit-appearance: none; padding-right: 48px; cu
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('is-open')) { close(); btn.focus(); } });
   });
 
-  /* ---------- Подборка оборудования ---------- */
-  var cart = {};
-  var counters = document.querySelectorAll('[data-cart-count]');
-  var words = document.querySelectorAll('[data-cart-word]');
-  var cartBtn = document.querySelector('[data-cart-button]');
-
-  // Формы слова берутся из data-forms (для AZ и EN заданы в разметке).
-  function plural(n, forms) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return forms[0];
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
-    return forms[2];
-  }
-
-  function renderCart() {
-    var n = Object.keys(cart).length;
-    counters.forEach(function (el) { el.textContent = n; });
-    words.forEach(function (el) {
-      var forms = (el.getAttribute('data-forms') || 'позиция|позиции|позиций').split('|');
-      el.textContent = plural(n, forms);
-    });
-    if (cartBtn) {
-      var label = cartBtn.getAttribute('data-label') || 'Подборка оборудования';
-      cartBtn.setAttribute('aria-label', label + ': ' + n);
-    }
-  }
-
-  document.querySelectorAll('[data-add]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-add');
-      var name = btn.getAttribute('data-name') || '';
-      var inCart = !cart[id];
-      if (inCart) cart[id] = 1; else delete cart[id];
-      btn.setAttribute('aria-pressed', String(inCart));
-      btn.setAttribute('aria-label', (inCart ? T.remove : T.add) + name);
-      renderCart();
-    });
-  });
-  renderCart();
+  /* Корзина управляется общим интерфейсом site-ui.js. */
 
   /* ---------- Слайдер отзывов ---------- */
   var track = document.querySelector('[data-rev-track]');
@@ -2724,5 +2693,7 @@ document.querySelectorAll('[data-upload]').forEach(function (box) {
   apply();
 })();
 </script>
+<script src="../assets/site-ui.js"></script>
+<script src="../assets/staff-profiles.js"></script>
 </body>
 </html>

@@ -1886,7 +1886,14 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 .quote-file::file-selector-button:hover { background: var(--acc); }
 .quote-hint { font-size: 14px; line-height: 1.45; }
 @media (max-width: 720px) { .quote-modal { padding: 12px; } .quote-box { padding: 32px 20px 24px; border-radius: var(--r-md); } .quote-form .grid2 { grid-template-columns: 1fr; } }
+
+/* Карточки порядка работы главной */
+[aria-labelledby="steps-title"] .step { background: var(--paper); color: var(--ink); }
+[aria-labelledby="steps-title"] .step .num { background: var(--acc); color: var(--ink); }
+[aria-labelledby="steps-title"] .step p { color: var(--mute); }
 </style>
+<link rel="stylesheet" href="assets/site-ui.css">
+<link rel="stylesheet" href="assets/catalog-popups.css">
 </head>
 <body>
 
@@ -2013,8 +2020,8 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 <section class="wrap" aria-labelledby="hero-title">
   <div class="hero-media">
     <picture>
-      <source media="(max-width: 968px)" srcset="img/bg_m.png">
-      <img class="hero-bg" src="img/bg.png" width="774" height="467" alt="Taxta reykalı Sensemi Azerbaijan stendi — ADVEX layihəsi" fetchpriority="high">
+      <source media="(max-width: 968px)" srcset="img/bg_m.webp">
+      <img class="hero-bg" src="img/bg.webp" width="774" height="467" alt="Taxta reykalı Sensemi Azerbaijan stendi — ADVEX layihəsi" fetchpriority="high">
     </picture>
     <div class="hero-top">
       <div>
@@ -2051,21 +2058,21 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   </div>
 
   <ul class="cat-grid">
-    <li><a href="stands/roll-up/index.html" class="tile"><div class="tile-img"><img src="img/category/01-Ролл-ап.png" width="247" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Roll-up</span></div></a></li>
-    <li><a href="stands/pop-up/index.html" class="tile"><div class="tile-img"><img src="img/category/02-Поп-ап.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Pop-up</span></div></a></li>
-    <li><a href="stands/banner/index.html" class="tile"><div class="tile-img"><img src="img/category/03-Баннерные-стенды.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Banner stendləri</span></div></a></li>
-    <li><a href="stands/fold-up/index.html" class="tile"><div class="tile-img"><img src="img/category/04-Фолд-ап.png" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Fold-up</span></div></a></li>
+    <li><a href="stands/roll-up/index.html" class="tile" data-catalog-open="1" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/01-Ролл-ап.webp" width="247" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Roll-up</span></div></a></li>
+    <li><a href="stands/pop-up/index.html" class="tile" data-catalog-open="2" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/02-Поп-ап.webp" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Pop-up</span></div></a></li>
+    <li><a href="stands/banner/index.html" class="tile" data-catalog-open="3" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/03-Баннерные-стенды.webp" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Banner stendləri</span></div></a></li>
+    <li><a href="stands/fold-up/index.html" class="tile" data-catalog-open="4" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/04-Фолд-ап.webp" width="246" height="225" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Fold-up</span></div></a></li>
 
-    <li><a href="stands/custom/index.html" class="tile"><span class="chip chip-lime">Fərdi layihə</span><div class="tile-img"><img src="img/category/07-Выставочные-застройки.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Sərgi tikililəri</span></div></a></li>
+    <li><a href="stands/custom/index.html" class="tile" data-catalog-open="7" aria-haspopup="dialog" aria-controls="catalog-modal"><span class="chip chip-lime">Fərdi layihə</span><div class="tile-img"><img src="img/category/07-Выставочные-застройки.webp" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Sərgi tikililəri</span></div></a></li>
 
-    <li><a href="stands/press-wall/index.html" class="tile"><div class="tile-img"><img src="img/category/05-Пресс-волл.png" width="247" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Press-wall</span></div></a></li>
-    <li><a href="stands/fabric/index.html" class="tile"><div class="tile-img"><img src="img/category/06-Тканевые-стенды.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Parça stendlər</span></div></a></li>
-    <li><a href="stands/reception/index.html" class="tile"><div class="tile-img"><img src="img/category/08-Ресепшен.png" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Resepşn masaları</span></div></a></li>
-    <li><a href="stands/promo/index.html" class="tile"><div class="tile-img"><img src="img/category/10-Промостойки.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Promo masalar</span></div></a></li>
-    <li><a href="stands/signs/index.html" class="tile"><div class="tile-img"><img src="img/category/11-Рекламные-вывески.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Reklam lövhələri</span></div></a></li>
-    <li><a href="stands/brochure/index.html" class="tile"><div class="tile-img"><img src="img/category/12-Буклетницы.png" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Buklet stendləri</span></div></a></li>
+    <li><a href="stands/press-wall/index.html" class="tile" data-catalog-open="5" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/05-Пресс-волл.webp" width="247" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Press-wall</span></div></a></li>
+    <li><a href="stands/fabric/index.html" class="tile" data-catalog-open="6" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/06-Тканевые-стенды.webp" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Parça stendlər</span></div></a></li>
+    <li><a href="stands/reception/index.html" class="tile" data-catalog-open="8" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/08-Ресепшен.webp" width="246" height="226" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Resepşn masaları</span></div></a></li>
+    <li><a href="stands/promo/index.html" class="tile" data-catalog-open="10" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/10-Промостойки.webp" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Promo masalar</span></div></a></li>
+    <li><a href="stands/signs/index.html" class="tile" data-catalog-open="11" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/11-Рекламные-вывески.webp" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Reklam lövhələri</span></div></a></li>
+    <li><a href="stands/brochure/index.html" class="tile" data-catalog-open="12" aria-haspopup="dialog" aria-controls="catalog-modal"><div class="tile-img"><img src="img/category/12-Буклетницы.webp" width="246" height="227" alt="" loading="lazy"><span class="tile-more">Bax</span></div><div class="tile-cap"><span>Buklet stendləri</span></div></a></li>
 
-    <li class="is-cta"><a href="#contact" class="cta-tile"><span class="mono">Lazım olan forma yoxdur?</span><p>Eskiziniz əsasında konstruksiya hazırlayaq.</p><span class="ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+    <li class="is-cta"><a href="#sketch-modal" class="cta-tile" data-sketch-open aria-haspopup="dialog" aria-controls="sketch-modal"><span class="mono">Lazım olan forma yoxdur?</span><p>Eskiziniz əsasında konstruksiya hazırlayaq.</p><span class="ic"><svg width="20" height="20" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
   </ul>
 </section>
 
@@ -2085,7 +2092,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     <ul class="acc" data-acc>
       <!-- 01 -->
       <li class="acc-p t-photo is-on">
-        <img class="acc-bg" src="img/block3/Дизайн%20и%20сборка%20выставочного%20стенда-2.png" alt="" loading="lazy">
+        <img class="acc-bg" src="img/block3/Дизайн%20и%20сборка%20выставочного%20стенда-2.webp" alt="" loading="lazy">
         <div class="shade"></div>
         <div class="acc-body" id="dir-1">
           <span class="mono">01 / Dizayn və istehsal</span>
@@ -2099,7 +2106,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       </li>
       <!-- 02 -->
       <li class="acc-p t-lime">
-        <img class="acc-bg" src="img/block3/Команда%20профессиональных%20хостов%20на%20выставке-1.png" alt="" loading="lazy">
+        <img class="acc-bg" src="img/block3/Команда%20профессиональных%20хостов%20на%20выставке-1.webp" alt="" loading="lazy">
         <div class="shade"></div>
         <div class="acc-body" id="dir-2">
           <span class="mono">02 / Heyət</span>
@@ -2113,7 +2120,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       </li>
       <!-- 03 -->
       <li class="acc-p t-render">
-        <img class="acc-bg" src="img/block3/Премиальный%20прокат%20оборудования%20для%20мероприятий-3.png" alt="" loading="lazy">
+        <img class="acc-bg" src="img/block3/Премиальный%20прокат%20оборудования%20для%20мероприятий-3.webp" alt="" loading="lazy">
         <div class="shade"></div>
         <div class="acc-body" id="dir-3">
           <span class="mono">03 / Avadanlıq</span>
@@ -2143,10 +2150,10 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   </div>
 
   <ul class="proj-grid">
-    <li class="p-a"><a href="projects.html" class="proj"><img src="img/case/case1.png" width="479" height="271" alt="SANSA stendi" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>SANSA stendi</h3><span class="mono">01</span></div><span class="muted">Ada tipli ekspozisiya</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
-    <li class="p-b"><a href="projects.html" class="proj"><img src="img/case/case2.png" width="477" height="271" alt="Volqoqrad vilayətinin ekspozisiyası" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>Volqoqrad vilayəti · ekspozisiya</h3><span class="mono">02</span></div><span class="muted">İştirakçıların birgə stendi</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
-    <li class="p-c"><a href="projects.html" class="proj"><img src="img/case/case3.png" width="479" height="270" alt="Meksika · Keretaro stendi" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>Meksika · Keretaro</h3><span class="mono">03</span></div><span class="muted">Turizm təqdimatı</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
-    <li class="p-d"><a href="projects.html" class="proj"><img src="img/case/case4.png" width="477" height="270" alt="Sensemi Azerbaijan stendi" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>Sensemi Azerbaijan stendi</h3><span class="mono">04</span></div><span class="muted">Taxta reykalı stend</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-a"><a href="projects.html" class="proj"><img src="img/case/case1.webp" width="479" height="271" alt="SANSA stendi" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>SANSA stendi</h3><span class="mono">01</span></div><span class="muted">Ada tipli ekspozisiya</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-b"><a href="projects.html" class="proj"><img src="img/case/case2.webp" width="477" height="271" alt="Volqoqrad vilayətinin ekspozisiyası" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>Volqoqrad vilayəti · ekspozisiya</h3><span class="mono">02</span></div><span class="muted">İştirakçıların birgə stendi</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-c"><a href="projects.html" class="proj"><img src="img/case/case3.webp" width="479" height="270" alt="Meksika · Keretaro stendi" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>Meksika · Keretaro</h3><span class="mono">03</span></div><span class="muted">Turizm təqdimatı</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
+    <li class="p-d"><a href="projects.html" class="proj"><img src="img/case/case4.webp" width="477" height="270" alt="Sensemi Azerbaijan stendi" loading="lazy"><span class="chip pos-tl"><span class="dot"></span>ADVEX layihəsi</span><div class="proj-info"><div class="row"><h3>Sensemi Azerbaijan stendi</h3><span class="mono">04</span></div><span class="muted">Taxta reykalı stend</span></div><span class="proj-go"><svg width="22" height="22" aria-hidden="true"><use href="#i-arrow-ur"/></svg></span></a></li>
   </ul>
 </section>
 
@@ -2165,14 +2172,14 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <li><span class="n">05</span>Quraşdırma</li>
         <li><span class="n">06</span>Sökülmə</li>
       </ol>
-      <a href="#" class="btn btn-dark">Ətraflı<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="stands.html" class="btn btn-dark">Ətraflı<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
     </div>
 
     <div class="ba-wrap">
       <div class="ba" data-ba>
-        <img src="img/block5/final.png" width="511" height="302" alt="Hazır Sensemi Azerbaijan stendi" loading="lazy">
+        <img src="img/block5/final.webp" width="511" height="302" alt="Hazır Sensemi Azerbaijan stendi" loading="lazy">
         <div class="ba-sketch" aria-hidden="true">
-          <img src="img/block5/eskiz.png" alt="">
+          <img src="img/block5/eskiz.webp" alt="">
         </div>
         <div class="ba-line"><span class="ba-knob"><svg width="22" height="22" aria-hidden="true"><use href="#i-swap"/></svg></span></div>
         <span class="chip pos-tl">Eskiz</span>
@@ -2197,12 +2204,12 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
   </div>
 
   <ol class="steps">
-    <li class="step s1"><div class="top"><span class="num">01</span></div><h3>Tanışlıq</h3><p>Məqsədləri, meydançanı və iştirak formatını müzakirə edirik.</p></li>
-    <li class="step s2"><div class="top"><span class="num">02</span></div><h3>Konsepsiya</h3><p>Brendinizi açan ideyanı tapırıq.</p></li>
-    <li class="step s3"><div class="top"><span class="num">03</span></div><h3>Dizayn</h3><p>Planlaşdırmanı və vizual həlli işləyib hazırlayırıq.</p></li>
-    <li class="step s4"><div class="top"><span class="num">04</span></div><h3>Razılaşdırma</h3><p>İşlərin həcmini, büdcəni və müddətləri təsdiqləyirik.</p></li>
-    <li class="step s5"><div class="top"><span class="num">05</span></div><h3>İstehsal</h3><p>Konstruksiyaları və qrafik tərtibatı hazırlayırıq.</p></li>
-    <li class="step s6"><div class="top"><span class="num">06</span></div><h3>Quraşdırma</h3><p>Məkanı tədbirin başlanğıcına hazır qururuq.</p></li>
+    <li class="step s1"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-4 3v-7a7.5 7.5 0 0 1 7.5-11H13a7 7 0 0 1 7 7.5Z"/><path d="M7 9h9M7 13h6"/></svg></span></div><h3>Tanışlıq</h3><p>Məqsədləri, meydançanı və iştirak formatını müzakirə edirik.</p></li>
+    <li class="step s2"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 17.5h5M10.5 21h3"/><path d="M12 2.5a6.5 6.5 0 0 0-3.9 11.7c.6.5 1.1 1.3 1.1 2.1v.2h5.6v-.2c0-.8.5-1.6 1.1-2.1A6.5 6.5 0 0 0 12 2.5Z"/><path d="M12 6.5a2.5 2.5 0 0 0-2.5 2.5"/></svg></span></div><h3>Konsepsiya</h3><p>Brendinizi açan ideyanı tapırıq.</p></li>
+    <li class="step s3"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 4 5 5M4 20l1-6L15.5 3.5a2.1 2.1 0 0 1 3 0l2 2a2.1 2.1 0 0 1 0 3L10 19Z"/><path d="M4 20h16"/></svg></span></div><h3>Dizayn</h3><p>Planlaşdırmanı və vizual həlli işləyib hazırlayırıq.</p></li>
+    <li class="step s4"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8Z"/><path d="M14 3v5h5m-10 7 2 2 5-5"/></svg></span></div><h3>Razılaşdırma</h3><p>İşlərin həcmini, büdcəni və müddətləri təsdiqləyirik.</p></li>
+    <li class="step s5"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9Z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9M8 5.25l8 4.5"/></svg></span></div><h3>İstehsal</h3><p>Konstruksiyaları və qrafik tərtibatı hazırlayırıq.</p></li>
+    <li class="step s6"><div class="top"><span class="num"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 6.5a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3Z"/><path d="m14.5 6.5 2.5-2.5 3 3-2.5 2.5M5 21l2-2"/></svg></span></div><h3>Quraşdırma</h3><p>Məkanı tədbirin başlanğıcına hazır qururuq.</p></li>
   </ol>
 </section>
 
@@ -2225,11 +2232,11 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <p class="big">Stend üçün seçim edin — biz təklif hazırlayaq.</p>
       </div>
       <p class="counter" aria-live="polite"><b data-cart-count>0</b><span class="muted"><span data-cart-word data-forms="mövqe|mövqe|mövqe">mövqe</span> seçilib</span></p>
-      <a href="#contact" class="btn btn-white btn-sm">Seçimi göndərin<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+      <a href="#cart-modal" class="btn btn-white btn-sm" data-cart-open aria-haspopup="dialog" aria-controls="cart-modal">Seçimi göndərin<span class="ic"><svg width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
     </div>
 
     <article class="prod">
-      <div class="prod-img"><img src="img/shop/stol.png" width="338" height="335" alt="Dəyirmi masa" loading="lazy"><span class="chip">Masalar</span></div>
+      <div class="prod-img"><img src="img/shop/stol.webp" width="338" height="335" alt="Dəyirmi masa" loading="lazy"><span class="chip">Masalar</span></div>
       <div class="prod-b">
         <h3>Dəyirmi masa</h3>
         <span class="mono">Ø 80 × 74 sm</span>
@@ -2238,7 +2245,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     </article>
 
     <article class="prod">
-      <div class="prod-img"><img src="img/shop/styl.png" width="337" height="335" alt="Bar stulu" loading="lazy"><span class="chip">Stullar</span></div>
+      <div class="prod-img"><img src="img/shop/styl.webp" width="337" height="335" alt="Bar stulu" loading="lazy"><span class="chip">Stullar</span></div>
       <div class="prod-b">
         <h3>Bar stulu</h3>
         <span class="mono">45 × 48 × 105 sm</span>
@@ -2247,7 +2254,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     </article>
 
     <article class="prod">
-      <div class="prod-img"><img src="img/shop/divan.png" width="336" height="335" alt="İkiyerlik divan" loading="lazy"><span class="chip">Divanlar</span></div>
+      <div class="prod-img"><img src="img/shop/divan.webp" width="336" height="335" alt="İkiyerlik divan" loading="lazy"><span class="chip">Divanlar</span></div>
       <div class="prod-b">
         <h3>İkiyerlik divan</h3>
         <span class="mono">160 × 80 × 75 sm</span>
@@ -2270,7 +2277,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <div class="about-meta"><span class="mono">Bakı · Azərbaycan</span><span class="mono">Dizayn. İstehsal. Təəssürat.</span></div>
     </div>
   </div>
-  <div class="about-pill"><img src="img/p_about.png" alt="Taxta reykalar və resepşn masası olan sərgi məkanının interyeri" loading="lazy"><span class="about-word" aria-hidden="true">ADVEX</span></div>
+  <div class="about-pill"><img src="img/p_about.webp" alt="Taxta reykalar və resepşn masası olan sərgi məkanının interyeri" loading="lazy"><span class="about-word" aria-hidden="true">ADVEX</span></div>
 </section>
 
 <!-- ================= КЛИЕНТЫ ================= -->
@@ -2279,12 +2286,12 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     <h2 class="h3" id="clients-title">Müştərilər və tərəfdaşlar</h2>
     <!-- Замените .slot на <li><img src="img/logo-....svg" alt="Название"></li> после согласования -->
     <ul class="logos">
-      <li class="slot"><img src="img/partners/logo1.png" alt="AIC" loading="lazy"></li>
-      <li class="slot"><img src="img/partners/logo2.png" alt="One Touch" loading="lazy"></li>
-      <li class="slot"><img src="img/partners/logo3.png" alt="Мой бизнес" loading="lazy"></li>
-      <li class="slot"><img src="img/partners/logo4.png" alt="Sensemi · MetCom" loading="lazy"></li>
-      <li class="slot"><img src="img/partners/logo5.png" alt="Azərbaycan Sərgi Təşkilatçıları Assosiasiyası" loading="lazy"></li>
-      <li class="slot"><img src="img/partners/logo6.png" alt="Samson" loading="lazy"></li>
+      <li class="slot"><img src="img/partners/logo1.webp" alt="AIC" loading="lazy"></li>
+      <li class="slot"><img src="img/partners/logo2.webp" alt="One Touch" loading="lazy"></li>
+      <li class="slot"><img src="img/partners/logo3.webp" alt="Мой бизнес" loading="lazy"></li>
+      <li class="slot"><img src="img/partners/logo4.webp" alt="Sensemi · MetCom" loading="lazy"></li>
+      <li class="slot"><img src="img/partners/logo5.webp" alt="Azərbaycan Sərgi Təşkilatçıları Assosiasiyası" loading="lazy"></li>
+      <li class="slot"><img src="img/partners/logo6.webp" alt="Samson" loading="lazy"></li>
     </ul>
   </div>
 </section>
@@ -2310,9 +2317,9 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <span class="stars" aria-label="Qiymət: 5-dən 5"><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg><svg width="18" height="18" aria-hidden="true"><use href="#i-star"/></svg></span>
         <p>Xəritələrdəki rəylər üzrə orta qiymət. Hər birini oxuyur və hamısına cavab veririk.</p>
         <ul class="rev-src">
-          <li><svg class="pin" width="22" height="22" aria-hidden="true" style="color:#D4F14B"><use href="#i-pin"/></svg>Google Maps<b>4,9</b></li>
-          <li><svg class="pin" width="22" height="22" aria-hidden="true" style="color:#FFFFFF"><use href="#i-pin"/></svg>Yandex Xəritələr<b>4,9</b></li>
-          <li><svg class="pin" width="22" height="22" aria-hidden="true" style="color:#9FD9A8"><use href="#i-pin"/></svg>2GIS<b>4,8</b></li>
+          <li><span class="review-brand-google"><img src="img/review-brands/google-maps-white.svg" alt="Google Maps" translate="no"></span><b>4,9</b></li>
+          <li><img class="review-brand-icon" src="img/review-brands/yandex-maps.svg" alt="" aria-hidden="true">Yandex Xəritələr<b>4,9</b></li>
+          <li><img class="review-brand-icon" src="img/review-brands/2gis.svg" alt="" aria-hidden="true">2GIS<b>4,8</b></li>
         </ul>
       </div>
 
@@ -2374,7 +2381,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
         <h2 class="h2" id="faq-title">Yaxşı suallar.<br>Aydın cavablar.</h2>
       </div>
       <div>
-        <a href="#contact" class="btn btn-dark">Sual verin<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+        <a href="#question-modal" class="btn btn-dark" data-question-open aria-haspopup="dialog" aria-controls="question-modal">Sual verin<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
 
@@ -2452,7 +2459,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 
       <div class="fld"><label class="lbl" for="f-task">Tapşırıq haqqında danışın</label><textarea class="inp" id="f-task" name="message" placeholder="Sərgi, tarixlər, stend sahəsi, istəklər"></textarea></div>
 
-      <label class="chk"><input type="checkbox" name="consent" required><span><a href="#">Məxfilik siyasətində</a> təsvir olunan məlumatların emalı şərtləri ilə razıyam. *</span></label>
+      <label class="chk"><input type="checkbox" name="consent" required><span><a href="privacy.html">Məxfilik siyasətində</a> təsvir olunan məlumatların emalı şərtləri ilə razıyam. *</span></label>
 
       <button type="submit" class="btn btn-dark btn-block">Sorğu göndərin<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <div class="sent" role="status" tabindex="-1" hidden><span class="ok"><svg width="18" height="18" aria-hidden="true"><use href="#i-check"/></svg></span>Təşəkkürlər! Sorğunuz göndərildi — sizinlə əlaqə saxlayacağıq.</div>
@@ -2475,7 +2482,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
       <div class="grid2"><div class="fld"><label class="lbl" for="q-date">Tədbirin tarixi</label><input class="inp" id="q-date" name="event_date" type="date" ></div><div class="fld"><label class="lbl" for="q-structure">Konstruksiya növü</label><input class="inp" id="q-structure" name="structure" type="text" ></div></div>
       <div class="fld"><label class="lbl" for="q-task">Layihəniz barədə danışın</label><textarea class="inp" id="q-task" name="message"></textarea></div>
       <div class="fld"><label class="lbl" for="q-file">Texniki tapşırıq və ya plan</label><input class="inp quote-file" id="q-file" name="brief" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt,.ods,.odp" aria-describedby="q-file-hint"><p class="muted quote-hint" id="q-file-hint">Sənəd və ya şəkil · 10 MB-a qədər · fayl serverə yüklənmir</p></div>
-      <label class="chk"><input type="checkbox" name="consent" required><span>Məlumatların emalı ilə bağlı <a href="#">məxfilik siyasətində</a> təsvir olunan şərtlərlə razıyam. *</span></label>
+      <label class="chk"><input type="checkbox" name="consent" required><span>Məlumatların emalı ilə bağlı <a href="privacy.html">məxfilik siyasətində</a> təsvir olunan şərtlərlə razıyam. *</span></label>
       <button type="submit" class="btn btn-dark btn-block">Sorğu göndər<span class="ic"><svg width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
       <div class="sent" role="status" tabindex="-1" data-quote-status hidden>Forma vasitəsilə göndərmə hazırda mümkün deyil. Bizimlə əlaqə saxlayın: <a href="tel:+994503161661">+994 50 316 16 61</a></div>
     </form>
@@ -2521,7 +2528,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
           <a href="about.html">Şirkət haqqında</a>
           <a href="contacts.html">Əlaqə</a>
           <a href="delivery.html">Çatdırılma və ödəniş</a>
-          <a href="#">Məxfilik siyasəti</a>
+          <a href="privacy.html">Məxfilik siyasəti</a>
         </div>
       </div>
       <div class="foot-bar">
@@ -2626,45 +2633,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('is-open')) { close(); btn.focus(); } });
   });
 
-  /* ---------- Подборка оборудования ---------- */
-  var cart = {};
-  var counters = document.querySelectorAll('[data-cart-count]');
-  var words = document.querySelectorAll('[data-cart-word]');
-  var cartBtn = document.querySelector('[data-cart-button]');
-
-  // Формы слова берутся из data-forms (для AZ и EN заданы в разметке).
-  function plural(n, forms) {
-    var m10 = n % 10, m100 = n % 100;
-    if (m10 === 1 && m100 !== 11) return forms[0];
-    if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return forms[1];
-    return forms[2];
-  }
-
-  function renderCart() {
-    var n = Object.keys(cart).length;
-    counters.forEach(function (el) { el.textContent = n; });
-    words.forEach(function (el) {
-      var forms = (el.getAttribute('data-forms') || 'позиция|позиции|позиций').split('|');
-      el.textContent = plural(n, forms);
-    });
-    if (cartBtn) {
-      var label = cartBtn.getAttribute('data-label') || 'Подборка оборудования';
-      cartBtn.setAttribute('aria-label', label + ': ' + n);
-    }
-  }
-
-  document.querySelectorAll('[data-add]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var id = btn.getAttribute('data-add');
-      var name = btn.getAttribute('data-name') || '';
-      var inCart = !cart[id];
-      if (inCart) cart[id] = 1; else delete cart[id];
-      btn.setAttribute('aria-pressed', String(inCart));
-      btn.setAttribute('aria-label', (inCart ? T.remove : T.add) + name);
-      renderCart();
-    });
-  });
-  renderCart();
+  /* Корзина управляется общим интерфейсом site-ui.js. */
 
   /* ---------- Слайдер отзывов ---------- */
   var track = document.querySelector('[data-rev-track]');
@@ -2756,5 +2725,7 @@ textarea.inp { height: 128px; padding: 16px 18px; resize: vertical; }
 })();
 
 </script>
+<script src="assets/site-ui.js"></script>
+<script src="assets/catalog-popups.js"></script>
 </body>
 </html>

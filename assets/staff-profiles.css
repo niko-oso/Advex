@@ -1,0 +1,15 @@
+.profile-layout { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); grid-template-areas: "heading heading" "photo copy"; column-gap: 36px; row-gap: 32px; align-items: start; }
+.profile-heading { grid-area: heading; padding-right: 48px; }
+.profile-heading .eyebrow { margin-bottom: 20px; }
+.profile-photo { grid-area: photo; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); background: var(--render); }
+.profile-copy { grid-area: copy; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.profile-copy .lead { max-width: none; }
+.profile-label { font-size: 14px; font-weight: 500; color: var(--mute); margin-bottom: 8px; }
+.profile-tasks { margin: 0; padding-left: 20px; color: var(--mute); }
+.profile-tasks li + li { margin-top: 6px; }
+.profile-note { font-size: 14px; line-height: 1.45; }
+.profile-copy .btn { align-self: flex-start; }
+.model-request-title { padding-right: 48px; }
+.model-request-lead { margin-top: 16px; }
+.model-request-form { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+@media (max-width: 768px) { .profile-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "photo" "copy"; gap: 24px; } .profile-photo { max-width: 400px; margin: 0 auto; } .profile-copy .btn { width: 100%; } .model-request-form .grid2 { grid-template-columns: 1fr; } }
